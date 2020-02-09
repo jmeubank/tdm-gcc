@@ -1,0 +1,53 @@
+
+PYTHON:
+- Grab latest python, 32-bit and 64-bit
+- Install to /crossdev/src/, make a copy, uninstall original installation
+- find . -xtype d | grep __pycache__ | xargs rm -fR
+- Generate 32-bit import lib
+   - [mingw-w64 gendef] gendef - C:/Windows/System32/python27.dll >python27.def
+   - [32-bit dlltool] dlltool --input-def python27.def --dllname python27.dll --output-lib libs/libpython27.dll.a
+- Update tdm32.sh and tdm64.sh to reflect new paths
+
+- Update msys
+- Check for updates to components
+   - Update the variables in common.sh, tdm64.sh and tdm32.sh
+- Load in patches to gcc and winpthreads
+
+- Set up Mingw (non-64-bit) environment in /mingw32tdm with mingw-get
+   - binutils, mingwrt, w32api - mingw-get install mingwrt=5.2.1 w32api binutils
+   - Fix features.h if not using mingw-get
+- Clear out /mingw64tdm
+- Delete tdm* directories and distrib subdirectories from /crossdev/gccmaster
+
+TDM32-DW2: (run first and use to make GDB32)
+- Load in dw2.patch to GCC
+- Copy /mingw32tdm to /crossdev/buildfrom-tdm32 and add TDM-GCC
+- Run the build script
+- Rename -dw2.exe to non-suffixed
+   - for f in *-dw2.exe; do cp "$f" "$(echo $f | sed 's/-dw2\.exe/\.exe/g')"; done
+- Add gdb to tdm32.sh packages to build
+- Re-run build script to do GDB
+- Run the TDM-GCC specific tests like the multithread exception one
+   - cd /crossdev/tests
+
+TDM32:
+- Unload dw2.patch
+- Remove gdb from tdm32.sh packages to build`
+- Run the build script
+- Patch gdb-add-index32 to refer to gdb32
+- Copy gdb32 package from DW2 edition for TDMinstall
+
+TDM64:
+- Load in libs64.patch to gcc and winpthreads
+- Run the build script
+- Run the TDM-GCC specific tests like the multithread exception one
+
+PRE-RELEASE TESTING:
+- cd /crossdev/tests
+  - Multithread exceptions and DLLs
+  - Portability / relocatability from both cmd.exe and MSys
+  - Pretty printing of C++ types in GDB
+- Make sure GDB64 and GDB32 contain no pyc files
+- Make sure each component on its own has no missing DLL dependencies
+- Make sure installer downloads and installs all packages (no broken URLs)
+- diff <(ls -1a /c/TDM-GCC-32-5.1.0) <(ls -1a /c/TDM-GCC-32test)
