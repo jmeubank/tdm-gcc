@@ -6,7 +6,7 @@
 title: tdm-gcc
 email:
 description: GCC compiler, Windows-friendly.
-url: # the base hostname & protocol for your site
+url: https://jmeubank.github.io/tdm-gcc
 keywords: ["gcc", "windows", "mingw", "mingw-w64"]
 
 #
