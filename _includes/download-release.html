@@ -1,0 +1,31 @@
+{%- assign extensions = ".tar.xz .tar.gz .tar.lzma .tar.bz2 .zip .exe" | split:' ' -%}
+
+{%- assign gbe = "item.name" -%}
+{%- for ext in extensions -%}
+  {%- assign gbe = gbe | append:" | remove: '" -%}
+  {%- assign gbe = gbe | append:ext -%}
+  {%- assign gbe = gbe | append:"'" -%}
+{%- endfor -%}
+
+<table>
+  <thead>
+    <tr>
+      <th style="white-space: nowrap;">Download a TDM-GCC installer:</th>
+      <th> </th>
+    </tr>
+  </thead>
+  <tbody>
+    {%- for installer in site.data.manifests.releases.installers -%}
+      <tr>
+        <td style="white-space: nowrap; vertical-align: text-top;">
+          <a href="{{ installer.versions[0].url }}" class="btn btn-info">
+            {{ installer.versions[0].file }}
+          </a>
+        </td>
+        <td style="vertical-align: text-top;">
+          {{ installer.description }}
+        </td>
+      </tr>
+    {%- endfor -%}
+  </tbody>
+</table>

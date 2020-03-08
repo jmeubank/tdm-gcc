@@ -1,0 +1,31 @@
+latest_gcc_version: 9.2.0
+installers:
+  - description: |
+      Minimal online installer. Select the components you want, and it downloads
+      and unpacks them. Either edition, latest release only. <em>(GCC
+      9.2.0)</em>
+    versions:
+      - version: 1.2001.0
+        url: '#'
+        file: tdm-gcc-webdl.exe
+        size: 524 KB
+  - sidebar_blurb: MinGW-w64 based
+    description: |
+      64+32-bit MinGW-w64 edition. Includes GCC C/C++, GNU binutils,
+      mingw32-make, GDB (64-bit), the MinGW-w64 runtime libraries and tools, and
+      the windows-default-manifest package.
+    versions:
+      - version: 9.2.0-tdm64-1
+        url: '#'
+        file: tdm64-gcc-9.2.0.exe
+        size: 59.4 MB
+  - sidebar_blurb: MinGW.org based
+    description: |
+      32-bit-only MinGW.org edition. Includes GCC C/C++, GNU binutils,
+      mingw32-make, GDB (32-bit), the MinGW.org mingwrt and w32api packages, and
+      the windows-default-manifest package.
+    versions:
+      - version: 9.2.0-tdm-1
+        url: '#'
+        file: tdm-gcc-9.2.0.exe
+        size: 48.6 MB

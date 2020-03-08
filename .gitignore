@@ -1,7 +1,13 @@
 _site
-.sass-cache
-.directory
-Thumbs.db
 _drafts
+
+.bundle/
+.directory
+.env
 .ruby-version
+.sass-cache
+
+vendor/
+
+Thumbs.db
 Gemfile.lock

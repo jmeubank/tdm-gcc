@@ -6,7 +6,7 @@
     <img src="{{ site.url }}/img/{{ author.avatar }}" alt="" class="avatar">
   </a>
   {% endif %}
-  <a href="{{ site.url }}/" class="author_name">{{ author.name }}</a>
+  <a href="{{ site.url }}/" class="author_name">{{ site.title }}</a>
   <span class="author_job">{{ author.job }}</span>
   <span class="author_bio mbm">{{ author.bio }}</span>
   <nav class="nav">
@@ -14,12 +14,26 @@
       <li class="nav-item">
         <a href="{{ site.url }}/">home</a>
       </li>
-      {% for page in site.pages %} {% if page.title %}
+      {% assign pages_ordered = site.pages | sort: "order" %}
+      {% for page in pages_ordered %} {% if page.title and page.order %}
       <li class="nav-item">
         <a href="{{ site.url }}{{ page.url }}">{{ page.title }}</a>
       </li>
       {% endif %} {% endfor %}
     </ul>
   </nav>
+
+  <p />
+
+  <div style="white-space:nowrap">
+    The latest release is based on <b>GCC {{ site.data.manifests.releases.latest_gcc_version }}</b>.
+  </div>
+
+  {%- for installer in site.data.manifests.releases.installers -%}{%- if installer.sidebar_blurb -%}
+    <p />
+    <div style="font-size:13px;font-weight:bold">{{ installer.sidebar_blurb }}</div>
+    <div><a href="{{ installer.versions[0].url }}">{{ installer.versions[0].file }}</a>, {{ installer.versions[0].size }}</div>
+  {%- endif -%}{%- endfor -%}
+
   {% include social-links.html %}
 </div>

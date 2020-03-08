@@ -1,0 +1,35 @@
+<tr>
+    <td>{{ asset.name }}</td>
+    <td>
+      {% for asset_item in asset.items %}
+        {% for ext in extensions %}
+          {% if asset_item.name contains ext %}
+            [<a href="{{ asset_item.browser_download_url }}">{{ ext | upcase }}</a>]
+          {% endif %}
+        {% endfor %}
+      {% endfor %}
+    </td>
+    <td>
+      {%- if asset.name contains "core" -%}
+        Required GCC core compiler
+      {%- endif -%}
+      {%- if asset.name contains "ada" -%}
+        Ada language
+      {%- endif -%}
+      {%- if asset.name contains "c++" -%}
+        C++ language
+      {%- endif -%}
+      {%- if asset.name contains "fortran" -%}
+        Fortran language
+      {%- endif -%}
+      {%- if asset.name contains "libgcc" -%}
+        libgcc DLL solo (included in core)
+      {%- endif -%}
+      {%- if asset.name contains "objc" -%}
+        Objective-C/C++ language
+      {%- endif -%}
+      {%- if asset.name contains "openmp" -%}
+        OpenMP / libgomp support
+      {%- endif -%}
+    </td>
+  </tr>

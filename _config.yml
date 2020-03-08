@@ -3,23 +3,25 @@
 # Site wide configuration
 ####################################
 #
-title: Leonids
+title: tdm-gcc
 email:
-description: A simple and awesome blog theme powered by jekyll.
+description: GCC compiler, Windows-friendly.
 url: # the base hostname & protocol for your site
-keywords: ["blog", "jekyll"]
+keywords: ["gcc", "windows", "mingw", "mingw-w64"]
 
 #
 ###################################
 # Jekyll configuration
 ####################################
 #
-timezone:          Europe/Paris
+timezone:          PST8PDT
 markdown:          kramdown
 highlighter:       rouge
 excerpt_separator: <!--more-->
 permalink:         /articles/:year-:month/:title
-
+plugins:
+  - jekyll-github-metadata
+repository: jmeubank/tdm-gcc-src
 kramdown:
   auto_ids: true
   footnote_nr: 1
@@ -33,10 +35,10 @@ kramdown:
 ####################################
 #
 owner:
-  name: Leonids
-  avatar: leonids-logo.png
-  job: "A jekyll theme"
-  bio: "A simple and awesome blog theme powered by jekyll."
+  name: J.M. Eubank
+  avatar: dragon_logo1.gif
+#  job: "GCC compiler, Windows-friendly."
+  bio: "GCC compiler, Windows-friendly."
   email:
   disqus-shortname:
   twitter: #username
