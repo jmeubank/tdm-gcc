@@ -6,7 +6,7 @@ installers:
       9.2.0)</em>
     versions:
       - version: 1.2001.0
-        url: '#'
+        url: 'https://github.com/jmeubank/tdm-gcc/releases/download/v1.2001.0/tdm-gcc-webdl.exe'
         file: tdm-gcc-webdl.exe
         size: 524 KB
   - sidebar_blurb: MinGW-w64 based
@@ -16,7 +16,7 @@ installers:
       the windows-default-manifest package.
     versions:
       - version: 9.2.0-tdm64-1
-        url: '#'
+        url: 'https://github.com/jmeubank/tdm-gcc/releases/download/v9.2.0-tdm64-1/tdm64-gcc-9.2.0.exe'
         file: tdm64-gcc-9.2.0.exe
         size: 59.4 MB
   - sidebar_blurb: MinGW.org based
@@ -26,6 +26,6 @@ installers:
       the windows-default-manifest package.
     versions:
       - version: 9.2.0-tdm-1
-        url: '#'
+        url: 'https://github.com/jmeubank/tdm-gcc/releases/download/v9.2.0-tdm-1/tdm-gcc-9.2.0.exe'
         file: tdm-gcc-9.2.0.exe
         size: 48.6 MB
