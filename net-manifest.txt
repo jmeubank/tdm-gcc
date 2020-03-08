@@ -1,8 +1,8 @@
 <TDMInstallManifest>
     <MinVersion version="1.2001.0">
-	    A new version of the TDM-GCC setup program is now available. Please
-	    visit &lt;github.com/jmeubank/tdm-gcc&gt; to download this latest
-	    version.
+A new version of the TDM-GCC setup program is now available. Please
+visit &lt;jmeubank.github.io/tdm-gcc&gt; to download this
+latest version.
     </MinVersion>
     <System id="tdm32">
         <Name>TDM/MinGW - 32-bit</Name>
