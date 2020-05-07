@@ -1298,7 +1298,7 @@ Version:id|binutils-.+-tdm64.*
 ]]>]]>
 <Version default="true" id="binutils-::VER::" name="Binutils: ::VER::" unsize="::UNSIZE::">
     <Description>Current Release - binutils-::VER::</Description>
-    <Archive path="http://downloads.sourceforge.net/project/tdm-gcc/GNU%20binutils/binutils-::VER::.tar.xz" arcsize="::ARCSIZE::" />
+    <Archive path="https://github.com/jmeubank/tdm-binutils-gdb/releases/download/v::VER::/binutils-::VER::.tar.xz" arcsize="::ARCSIZE::" />
 </Version>
 ]]>]]>
 System:id|tdm64
@@ -1466,7 +1466,7 @@ Version:id|mingw64-runtime-.+-tdm64.*
 ]]>]]>
 <Version default="true" id="mingw64-runtime-::VER::" name="MinGW-w64 Runtime Snapshot: ::VER::" unsize="::UNSIZE::">
     <Description>MinGW-w64 git-::BRANCH:: for GCC ::GCCSERIES:: multilib</Description>
-    <Archive path="http://downloads.sourceforge.net/project/tdm-gcc/MinGW-w64%20runtime/GCC%20::GCCSERIES::%20series/mingw64runtime-::VER::.tar.xz" arcsize="::ARCSIZE::" />
+    <Archive path="https://github.com/jmeubank/mingw-w64/releases/download/::VER::/mingw64runtime-::VER::.tar.xz" arcsize="::ARCSIZE::" />
 </Version>
 ]]>]]>
 System:id|tdm64
@@ -1579,7 +1579,7 @@ Version:id|windows-default-manifest-.+-x86
 ]]>]]>
 <Version default="true" id="windows-default-manifest-::VER::-x86" name="TDM Current: ::VER::" unsize="::UNSIZE::">
 	<Description>Current release - ::VER::</Description>
-	<Archive path="http://downloads.sourceforge.net/project/tdm-gcc/Windows%20default%20manifest/windows-default-manifest-::VER::-x86.tar.xz" arcsize="::ARCSIZE::" />
+	<Archive path="https://github.com/jmeubank/windows-default-manifest/releases/download/v::VER::-x86/windows-default-manifest-::VER::-x86.tar.xz" arcsize="::ARCSIZE::" />
 </Version>
 ]]>]]>
 System:id|tdm32
@@ -1605,7 +1605,7 @@ Version:id|windows-default-manifest-.+-x86_64_multi
 ]]>]]>
 <Version default="true" id="windows-default-manifest-::VER::-x86_64_multi" name="TDM64 Current: ::VER::" unsize="::UNSIZE::">
 	<Description>Current release - ::VER::</Description>
-	<Archive path="http://downloads.sourceforge.net/project/tdm-gcc/Windows%20default%20manifest/windows-default-manifest-::VER::-x86_64_multi.tar.xz" arcsize="::ARCSIZE::" />
+	<Archive path="https://github.com/jmeubank/windows-default-manifest/releases/download/v::VER::-x86_64_multi/windows-default-manifest-::VER::-x86_64_multi.tar.xz" arcsize="::ARCSIZE::" />
 </Version>
 ]]>]]>
 System:id|tdm64
@@ -2186,27 +2186,27 @@ Version:id|gcc-.+-tdm-[0-9+]$(MAYBEGCCVERSUFFIX)$$
 	             GCC ::SERIES:: series, for MinGW, with $(EXCEPTIONS_CAPS) unwinding</Description>
 	<Component base="gcc-core" name="core" id="gcc-core-::VER::" unsize="::UNSIZE_CORE::">
 		<Description>Required base files and C support</Description>
-		<Archive path="http://downloads.sourceforge.net/project/tdm-gcc/TDM-GCC%20::SERIES::%20series/::VER_DIR::/gcc-::VER::-core.tar.xz" arcsize="::ARCSIZE_CORE::" />
+		<Archive path="https://github.com/jmeubank/tdm-gcc-src/releases/download/v::VER::-$(EXCEPTIONS)/gcc-::VER::-core.tar.xz" arcsize="::ARCSIZE_CORE::" />
 	</Component>
 	<Component base="gcc-g++" name="g++" id="gcc-c++-::VER::" unsize="::UNSIZE_CXX::">
 		<Description>C++ support</Description>
-		<Archive path="http://downloads.sourceforge.net/project/tdm-gcc/TDM-GCC%20::SERIES::%20series/::VER_DIR::/gcc-::VER::-c++.tar.xz" arcsize="::ARCSIZE_CXX::" />
+		<Archive path="https://github.com/jmeubank/tdm-gcc-src/releases/download/v::VER::-$(EXCEPTIONS)/gcc-::VER::-c++.tar.xz" arcsize="::ARCSIZE_CXX::" />
 	</Component>
 	<Component base="gcc-fortran" name="fortran" id="gcc-fortran-::VER::" unsize="::UNSIZE_FORTRAN::">
 		<Description>Fortran support</Description>
-		<Archive path="http://downloads.sourceforge.net/project/tdm-gcc/TDM-GCC%20::SERIES::%20series/::VER_DIR::/gcc-::VER::-fortran.tar.xz" arcsize="::ARCSIZE_FORTRAN::" />
+		<Archive path="https://github.com/jmeubank/tdm-gcc-src/releases/download/v::VER::-$(EXCEPTIONS)/gcc-::VER::-fortran.tar.xz" arcsize="::ARCSIZE_FORTRAN::" />
 	</Component>
 	<Component base="gcc-ada" name="ada" id="gcc-ada-::VER::" unsize="::UNSIZE_ADA::">
 		<Description>Ada support</Description>
-		<Archive path="http://downloads.sourceforge.net/project/tdm-gcc/TDM-GCC%20::SERIES::%20series/::VER_DIR::/gcc-::VER::-ada.tar.xz" arcsize="::ARCSIZE_ADA::" />
+		<Archive path="https://github.com/jmeubank/tdm-gcc-src/releases/download/v::VER::-$(EXCEPTIONS)/gcc-::VER::-ada.tar.xz" arcsize="::ARCSIZE_ADA::" />
 	</Component>
 	<Component base="gcc-objc" name="objc" id="gcc-objc-::VER::" unsize="::UNSIZE_OBJC::">
 		<Description>Objective-C/C++ support</Description>
-		<Archive path="http://downloads.sourceforge.net/project/tdm-gcc/TDM-GCC%20::SERIES::%20series/::VER_DIR::/gcc-::VER::-objc.tar.xz" arcsize="::ARCSIZE_OBJC::" />
+		<Archive path="https://github.com/jmeubank/tdm-gcc-src/releases/download/v::VER::-$(EXCEPTIONS)/gcc-::VER::-objc.tar.xz" arcsize="::ARCSIZE_OBJC::" />
 	</Component>
 	<Component base="gcc-openmp" name="openmp" id="gcc-openmp-::VER::" unsize="::UNSIZE_OPENMP::">
 		<Description>OpenMP support</Description>
-		<Archive path="http://downloads.sourceforge.net/project/tdm-gcc/TDM-GCC%20::SERIES::%20series/::VER_DIR::/gcc-::VER::-openmp.tar.xz" arcsize="::ARCSIZE_OPENMP::" />
+		<Archive path="https://github.com/jmeubank/tdm-gcc-src/releases/download/v::VER::-$(EXCEPTIONS)/gcc-::VER::-openmp.tar.xz" arcsize="::ARCSIZE_OPENMP::" />
 	</Component>
 </Version>
 ]]>]]>
@@ -2242,27 +2242,27 @@ Version:id|gcc-.+-tdm64.*
                  recent TDM64/MinGW-w64 release of GCC for MinGW</Description>
     <Component base="gcc-core" name="core" id="gcc-core-::VER::" unsize="::UNSIZE_CORE::">
         <Description>Required base files and C support</Description>
-        <Archive path="http://downloads.sourceforge.net/project/tdm-gcc/TDM-GCC%20::SERIES::%20series/::VER_DIR::/gcc-::VER::-core.tar.xz" arcsize="::ARCSIZE_CORE::" />
+        <Archive path="https://github.com/jmeubank/tdm-gcc-src/releases/download/v::VER::/gcc-::VER::-core.tar.xz" arcsize="::ARCSIZE_CORE::" />
     </Component>
     <Component base="gcc-c++" name="c++" id="gcc-c++-::VER::" unsize="::UNSIZE_CXX::">
         <Description>C++ support</Description>
-        <Archive path="http://downloads.sourceforge.net/project/tdm-gcc/TDM-GCC%20::SERIES::%20series/::VER_DIR::/gcc-::VER::-c++.tar.xz" arcsize="::ARCSIZE_CXX::" />
+        <Archive path="https://github.com/jmeubank/tdm-gcc-src/releases/download/v::VER::/gcc-::VER::-c++.tar.xz" arcsize="::ARCSIZE_CXX::" />
     </Component>
     <Component base="gcc-fortran" name="fortran" id="gcc-fortran-::VER::" unsize="::UNSIZE_FORTRAN::">
         <Description>Fortran support</Description>
-        <Archive path="http://downloads.sourceforge.net/project/tdm-gcc/TDM-GCC%20::SERIES::%20series/::VER_DIR::/gcc-::VER::-fortran.tar.xz" arcsize="::ARCSIZE_FORTRAN::" />
+        <Archive path="https://github.com/jmeubank/tdm-gcc-src/releases/download/v::VER::/gcc-::VER::-fortran.tar.xz" arcsize="::ARCSIZE_FORTRAN::" />
     </Component>
     <Component base="gcc-ada" name="ada" id="gcc-ada-::VER::" unsize="::UNSIZE_ADA::">
         <Description>Ada support</Description>
-        <Archive path="http://downloads.sourceforge.net/project/tdm-gcc/TDM-GCC%20::SERIES::%20series/::VER_DIR::/gcc-::VER::-ada.tar.xz" arcsize="::ARCSIZE_ADA::" />
+        <Archive path="https://github.com/jmeubank/tdm-gcc-src/releases/download/v::VER::/gcc-::VER::-ada.tar.xz" arcsize="::ARCSIZE_ADA::" />
     </Component>
     <Component base="gcc-objc" name="objc" id="gcc-objc-::VER::" unsize="::UNSIZE_OBJC::">
         <Description>Objective-C/C++ support</Description>
-        <Archive path="http://downloads.sourceforge.net/project/tdm-gcc/TDM-GCC%20::SERIES::%20series/::VER_DIR::/gcc-::VER::-objc.tar.xz" arcsize="::ARCSIZE_OBJC::" />
+        <Archive path="https://github.com/jmeubank/tdm-gcc-src/releases/download/v::VER::/gcc-::VER::-objc.tar.xz" arcsize="::ARCSIZE_OBJC::" />
     </Component>
     <Component base="gcc-openmp" name="openmp" id="gcc-openmp-::VER::" unsize="::UNSIZE_OPENMP::">
         <Description>OpenMP support (libgomp)</Description>
-        <Archive path="http://downloads.sourceforge.net/project/tdm-gcc/TDM-GCC%20::SERIES::%20series/::VER_DIR::/gcc-::VER::-openmp.tar.xz" arcsize="::ARCSIZE_OPENMP::" />
+        <Archive path="https://github.com/jmeubank/tdm-gcc-src/releases/download/v::VER::/gcc-::VER::-openmp.tar.xz" arcsize="::ARCSIZE_OPENMP::" />
     </Component>
 </Version>
 ]]>]]>
@@ -2554,7 +2554,7 @@ Version:id|gdb32-[^-]+-tdm.*
 ]]>]]>
 <Version default="true" id="gdb32-::VER::" name="Stable Release: ::VER::" unsize="::UNSIZE::">
     <Description>Current Release - gdb32-::VER:: (Python enabled)</Description>
-    <Archive path="http://downloads.sourceforge.net/project/tdm-gcc/GDB/gdb32-::VER::.tar.xz" arcsize="::ARCSIZE::" />
+    <Archive path="https://github.com/jmeubank/tdm-binutils-gdb/releases/download/v::VER::/gdb32-::VER::.tar.xz" arcsize="::ARCSIZE::" />
 </Version>
 ]]>]]>
 System:id|tdm32
@@ -2575,7 +2575,7 @@ Version:id|gdb32-[^-]+-tdm.*
 ]]>]]>
 <Version id="gdb32-::VER::" name="Stable Release: ::VER::" unsize="::UNSIZE::">
     <Description>Current Release - gdb32-::VER:: (Python enabled)</Description>
-    <Archive path="http://downloads.sourceforge.net/project/tdm-gcc/GDB/gdb32-::VER::.tar.xz" arcsize="::ARCSIZE::" />
+    <Archive path="https://github.com/jmeubank/tdm-binutils-gdb/releases/download/v::VER::/gdb32-::VER::.tar.xz" arcsize="::ARCSIZE::" />
 </Version>
 ]]>]]>
 System:id|tdm64
@@ -2595,7 +2595,7 @@ Version:id|gdb-[^-]+-tdm64.*
 ]]>]]>
 <Version default="true" id="gdb-::VER::" name="Stable Release: ::VER::" unsize="::UNSIZE::">
     <Description>Current Release - gdb-::VER::</Description>
-    <Archive path="http://downloads.sourceforge.net/project/tdm-gcc/GDB/gdb-::VER::.tar.xz" arcsize="::ARCSIZE::" />
+    <Archive path="https://github.com/jmeubank/tdm-binutils-gdb/releases/download/v::VER::/gdb-::VER::.tar.xz" arcsize="::ARCSIZE::" />
 </Version>
 ]]>]]>
 System:id|tdm64
@@ -3006,7 +3006,7 @@ ifeq ($(findstring w64,$(HOST)),)
 		MFTUPDATE_DIR=$(BUILD_BASE)/distrib/mftupdate/binutils \
 		MFTUPDATE_TEMPLATE="$$MFTUPDATE_MINGW_BASE_BINUTILS" \
 		VER_RGX="binutils-(.*)-mingw32-bin" \
-		ADDIN_URLS="http://downloads.sourceforge.net/project/tdm-gcc/Installer%20Supplement/libgcc/gcc-$(GCC_VER)-$(PKGVERSION)-dw2-libgcc.tar.xz" \
+		ADDIN_URLS="https://github.com/jmeubank/tdm-gcc-src/releases/download/v$(GCC_VER)-$(PKGVERSION)-dw2/gcc-$(GCC_VER)-$(PKGVERSION)-dw2-libgcc.tar.xz" \
 		ADDIN_STAGE_DIR="$(BUILD_BASE)/distrib/tdm32-dw2" \
 		PKG_SRC_DIR=$(PKG_SRC_DIR) MFTUPDATE_EXE=$(MFTUPDATE_EXE) NEW_NET_MFT=$(NEW_NET_MFT) STAGE_DIR=$(DISTRIB) \
 		$(MAKE) -f stage-from-arclist.mk
@@ -3026,7 +3026,7 @@ ifeq ($(findstring w64,$(HOST)),)
 		MFTUPDATE_DIR=$(BUILD_BASE)/distrib/mftupdate/mingw32-make \
 		MFTUPDATE_TEMPLATE="$$MFTUPDATE_MINGW_BASE_MAKE" \
 		VER_RGX="make-(.*)-bin" \
-		ADDIN_URLS="http://downloads.sourceforge.net/project/tdm-gcc/Installer%20Supplement/libgcc/gcc-$(GCC_VER)-$(PKGVERSION)-dw2-libgcc.tar.xz" \
+		ADDIN_URLS="https://github.com/jmeubank/tdm-gcc-src/releases/download/v$(GCC_VER)-$(PKGVERSION)-dw2/gcc-$(GCC_VER)-$(PKGVERSION)-dw2-libgcc.tar.xz" \
 		ADDIN_STAGE_DIR="$(BUILD_BASE)/distrib/tdm32-dw2" \
 		PKG_SRC_DIR=$(PKG_SRC_DIR) MFTUPDATE_EXE=$(MFTUPDATE_EXE) NEW_NET_MFT=$(NEW_NET_MFT) STAGE_DIR=$(DISTRIB) \
 		$(MAKE) -f stage-from-arclist.mk

@@ -1,12 +1,9 @@
 Open issues this go-around:
-  * Fix the net-manifest URL from local file:/// back to server
   * Fix website README
   * Finish website
-  * Do the binary releases
-  * Do the installer release
-  * Do the website push
 
 Goals:
+  * Are MinGW.org versions up to date with recent GCC 9, mingwrt 5.3, etc?
   * Check build arguments upstream for mingw-w64-runtime, binutils, gcc, gdb
   * Check mingw-w64-runtime, binutils, gcc, gdb versions used upstream (MinGW.org, MSYS2, ???)
   * Integrate tdm-distrib files into the patched source folders
@@ -32,6 +29,7 @@ Goals:
   * Make checkboxes for start menu and path match current installation when managing in installer
   * Have CMake regenerate properly when extlibs dependencies change (e.g. new version of UPX)
   * New version message has clickable link (probably don't use MessageBox)
+  * Try out MCFgthread - https://gcc-mcf.lhmouse.com/
 
 CHANGELIST:
   * License text updates for COPYING.MinGW.txt, LICENSE-python.txt, 
