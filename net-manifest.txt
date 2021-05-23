@@ -1,5 +1,5 @@
 <TDMInstallManifest>
-    <MinVersion version="1.2001.0">
+    <MinVersion version="1.2001.0" url="https://jmeubank.github.io/tdm-gcc/download/">
 A new version of the TDM-GCC setup program is now available. Please
 visit &lt;jmeubank.github.io/tdm-gcc&gt; to download this
 latest version.
