@@ -40,7 +40,7 @@ the following packages:
  * For the TDM64 edition, the GNU binutils sources
      (https://github.com/jmeubank/tdm-binutils-gdb/tree/tdm-patches-binutils.public)
      and the MinGW-w64 project's runtime sources
-     (https://sourceforge.net/p/mingw-w64/mingw-w64/ci/v7.0.0/tree/)
+     (https://github.com/jmeubank/mingw-w64/tree/tdm-patches)
  * The GCC source package
      (https://github.com/jmeubank/tdm-gcc-src/tree/tdm-patches.public)
  * The GMP, MPFR, and MPC sources
