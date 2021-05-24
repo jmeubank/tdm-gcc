@@ -84,7 +84,7 @@ versions are still available on SourceForge:
         Github:<a href="https://github.com/jmeubank/mingw-w64/releases">jmeubank/mingw-w64/releases</a>
       </td>
       <td>
-        Github:<a href="https://github.com/jmeubank/mingw-w64/tree/v7.x.public">jmeubank/mingw-w64/tree/v7.x.public</a>
+        Github:<a href="https://github.com/jmeubank/mingw-w64/tree/tdm-patches">jmeubank/mingw-w64/tree/tdm-patches</a>
       </td>
     </tr>
     <tr>

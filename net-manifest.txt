@@ -9,49 +9,49 @@ latest version.
         <Description>A standard MinGW-based 32-bit compiler system</Description>
         <Category id="gcc" name="gcc">
             <Description>The GNU Compiler Collection (Windows native)</Description>
-            <Version default="true" id="gcc-8.2.0-5" name="MinGW.org recommended: 8.2.0-5">
-                <Description>Current Release - gcc-8.2.0-5: The most recent
+            <Version default="true" id="gcc-9.2.0-2" name="MinGW.org recommended: 9.2.0-2">
+                <Description>Current Release - gcc-9.2.0-2: The most recent
 				 stable release of GCC for MinGW</Description>
-                <Component base="gcc-core" name="core" id="gcc-core-8.2.0-5" unsize="78184467">
+                <Component base="gcc-core" name="core" id="gcc-core-9.2.0-2" unsize="95718304">
                     <Description>Required base files and C support</Description>
-                    <Archive path="http://osdn.net/dl/mingw/gcc-8.2.0-5-mingw32-lic.tar.xz" arcsize="21784"/>
+                    <Archive path="http://osdn.net/dl/mingw/gcc-9.2.0-2-mingw32-lic.tar.xz" arcsize="21848"/>
                     <Archive path="http://osdn.net/dl/mingw/libiconv-1.14-4-mingw32-dll-2.tar.xz" arcsize="657828"/>
-                    <Archive path="http://osdn.net/dl/mingw/libatomic-8.2.0-5-mingw32-dll-1.tar.xz" arcsize="7428"/>
-                    <Archive path="http://osdn.net/dl/mingw/libgcc-8.2.0-5-mingw32-dll-1.tar.xz" arcsize="177188"/>
-                    <Archive path="http://osdn.net/dl/mingw/libintl-0.18.3.2-2-mingw32-dll-8.tar.xz" arcsize="156480"/>
+                    <Archive path="http://osdn.net/dl/mingw/libatomic-9.2.0-2-mingw32-dll-1.tar.xz" arcsize="7656"/>
+                    <Archive path="http://osdn.net/dl/mingw/libgcc-9.2.0-2-mingw32-dll-1.tar.xz" arcsize="171024"/>
                     <Archive path="http://osdn.net/dl/mingw/libgmp-6.1.2-3-mingw32-dll-10.tar.xz" arcsize="209152"/>
-                    <Archive path="http://osdn.net/dl/mingw/libmpfr-3.1.5-2-mingw32-dll-4.tar.xz" arcsize="145172"/>
-                    <Archive path="http://osdn.net/dl/mingw/libstdc++-8.2.0-5-mingw32-dll-6.tar.xz" arcsize="277052"/>
-                    <Archive path="http://osdn.net/dl/mingw/libquadmath-8.2.0-5-mingw32-dll-0.tar.xz" arcsize="172116"/>
-                    <Archive path="http://osdn.net/dl/mingw/libgomp-8.2.0-5-mingw32-dll-1.tar.xz" arcsize="75976"/>
-                    <Archive path="http://osdn.net/dl/mingw/libssp-8.2.0-5-mingw32-dll-0.tar.xz" arcsize="5156"/>
-                    <Archive path="http://osdn.net/dl/mingw/libmpc-1.0.3-2-mingw32-dll-3.tar.xz" arcsize="37248"/>
-                    <Archive path="http://osdn.net/dl/mingw/libisl-0.18-2-mingw32-dll-15.tar.xz" arcsize="656424"/>
-                    <Archive path="http://osdn.net/dl/mingw/gcc-core-8.2.0-5-mingw32-bin.tar.xz" arcsize="15461952"/>
-                    <Archive path="http://osdn.net/dl/mingw/gcc-8.2.0-5-mingw32-man.tar.xz" arcsize="277188"/>
-                    <Archive path="http://osdn.net/dl/mingw/gcc-8.2.0-5-mingw32-info.tar.xz" arcsize="1019064"/>
+                    <Archive path="http://osdn.net/dl/mingw/libintl-0.18.3.2-2-mingw32-dll-8.tar.xz" arcsize="156480"/>
+                    <Archive path="http://osdn.net/dl/mingw/libmpfr-4.0.2-1-mingw32-dll-6.tar.xz" arcsize="1320532"/>
+                    <Archive path="http://osdn.net/dl/mingw/libstdc++-9.2.0-2-mingw32-dll-6.tar.xz" arcsize="367512"/>
+                    <Archive path="http://osdn.net/dl/mingw/libquadmath-9.2.0-2-mingw32-dll-0.tar.xz" arcsize="192536"/>
+                    <Archive path="http://osdn.net/dl/mingw/libgomp-9.2.0-2-mingw32-dll-1.tar.xz" arcsize="115640"/>
+                    <Archive path="http://osdn.net/dl/mingw/libssp-9.2.0-2-mingw32-dll-0.tar.xz" arcsize="5376"/>
+                    <Archive path="http://osdn.net/dl/mingw/libmpc-1.1.0-1-mingw32-dll-3.tar.xz" arcsize="39308"/>
+                    <Archive path="http://osdn.net/dl/mingw/libisl-0.21-2-mingw32-dll-21.tar.xz" arcsize="664296"/>
+                    <Archive path="http://osdn.net/dl/mingw/gcc-core-9.2.0-2-mingw32-bin.tar.xz" arcsize="17887324"/>
+                    <Archive path="http://osdn.net/dl/mingw/gcc-9.2.0-2-mingw32-man.tar.xz" arcsize="288128"/>
+                    <Archive path="http://osdn.net/dl/mingw/gcc-9.2.0-2-mingw32-info.tar.xz" arcsize="1052180"/>
                 </Component>
-                <Component base="gcc-g++" name="g++" id="gcc-c++-8.2.0-5" unsize="58346442">
+                <Component base="gcc-g++" name="g++" id="gcc-c++-9.2.0-2" unsize="72776705">
                     <Description>C++ support</Description>
-                    <Archive path="http://osdn.net/dl/mingw/libstdc++-8.2.0-5-mingw32-dll-6.tar.xz" arcsize="277052"/>
-                    <Archive path="http://osdn.net/dl/mingw/gcc-c++-8.2.0-5-mingw32-bin.tar.xz" arcsize="9086348"/>
-                    <Archive path="http://osdn.net/dl/mingw/gcc-c++-8.2.0-5-mingw32-man.tar.xz" arcsize="250812"/>
+                    <Archive path="http://osdn.net/dl/mingw/libstdc++-9.2.0-2-mingw32-dll-6.tar.xz" arcsize="367512"/>
+                    <Archive path="http://osdn.net/dl/mingw/gcc-c++-9.2.0-2-mingw32-bin.tar.xz" arcsize="10901680"/>
+                    <Archive path="http://osdn.net/dl/mingw/gcc-c++-9.2.0-2-mingw32-man.tar.xz" arcsize="261660"/>
                 </Component>
-                <Component base="gcc-fortran" name="fortran" id="gcc-fortran-8.2.0-5" unsize="32184151">
+                <Component base="gcc-fortran" name="fortran" id="gcc-fortran-9.2.0-2" unsize="37075296">
                     <Description>Fortran support</Description>
-                    <Archive path="http://osdn.net/dl/mingw/libgfortran-8.2.0-5-mingw32-dll-5.tar.xz" arcsize="532888"/>
-                    <Archive path="http://osdn.net/dl/mingw/gcc-fortran-8.2.0-5-mingw32-bin.tar.xz" arcsize="7429964"/>
-                    <Archive path="http://osdn.net/dl/mingw/gcc-fortran-8.2.0-5-mingw32-info.tar.xz" arcsize="147136"/>
-                    <Archive path="http://osdn.net/dl/mingw/gcc-fortran-8.2.0-5-mingw32-man.tar.xz" arcsize="21076"/>
+                    <Archive path="http://osdn.net/dl/mingw/libgfortran-9.2.0-2-mingw32-dll-5.tar.xz" arcsize="568248"/>
+                    <Archive path="http://osdn.net/dl/mingw/gcc-fortran-9.2.0-2-mingw32-bin.tar.xz" arcsize="8788660"/>
+                    <Archive path="http://osdn.net/dl/mingw/gcc-fortran-9.2.0-2-mingw32-info.tar.xz" arcsize="150536"/>
+                    <Archive path="http://osdn.net/dl/mingw/gcc-fortran-9.2.0-2-mingw32-man.tar.xz" arcsize="22056"/>
                 </Component>
-                <Component base="gcc-ada" name="ada" id="gcc-ada-8.2.0-5" unsize="99031448">
+                <Component base="gcc-ada" name="ada" id="gcc-ada-9.2.0-2" unsize="114866348">
                     <Description>Ada support</Description>
-                    <Archive path="http://osdn.net/dl/mingw/gcc-ada-8.2.0-5-mingw32-bin.tar.xz" arcsize="18091124"/>
+                    <Archive path="http://osdn.net/dl/mingw/gcc-ada-9.2.0-2-mingw32-bin.tar.xz" arcsize="19929416"/>
                 </Component>
-                <Component base="gcc-objc" name="objc" id="gcc-objc-8.2.0-5" unsize="45687353">
+                <Component base="gcc-objc" name="objc" id="gcc-objc-9.2.0-2" unsize="50039416">
                     <Description>Objective-C/C++ support</Description>
-                    <Archive path="http://osdn.net/dl/mingw/libobjc-8.2.0-5-mingw32-dll-4.tar.xz" arcsize="52060"/>
-                    <Archive path="http://osdn.net/dl/mingw/gcc-objc-8.2.0-5-mingw32-bin.tar.xz" arcsize="13034992"/>
+                    <Archive path="http://osdn.net/dl/mingw/libobjc-9.2.0-2-mingw32-dll-4.tar.xz" arcsize="49768"/>
+                    <Archive path="http://osdn.net/dl/mingw/gcc-objc-9.2.0-2-mingw32-bin.tar.xz" arcsize="14587316"/>
                 </Component>
                 <Component base="gcc-openmp" name="openmp" id="gcc-openmp-2.10-mingw32-pre-20160821-1" unsize="1236019">
                     <Description>OpenMP support (pthreads-w32)</Description>
@@ -60,65 +60,65 @@ latest version.
                     <Archive path="http://prdownloads.sourceforge.net/mingw/pthreads-w32-2.10-mingw32-pre-20160821-1-doc.tar.xz?download" arcsize="39472"/>
                     <Archive path="http://prdownloads.sourceforge.net/mingw/pthreads-w32-2.10-mingw32-pre-20160821-1-lic.tar.xz?download" arcsize="10568"/>
                 </Component>
-                <Component base="gcc-nls" name="nls" id="gcc-nls-8.2.0-5" unsize="11067526">
+                <Component base="gcc-nls" name="nls" id="gcc-nls-9.2.0-2" unsize="11956683">
                     <Description>Native language support (localizations)</Description>
-                    <Archive path="http://osdn.net/dl/mingw/gcc-8.2.0-5-mingw32-lang.tar.xz" arcsize="1572908"/>
+                    <Archive path="http://osdn.net/dl/mingw/gcc-9.2.0-2-mingw32-lang.tar.xz" arcsize="1650968"/>
                 </Component>
             </Version>
-            <Version id="gcc-9.2.0-tdm-1" name="TDM-GCC Current: 9.2.0-tdm-1">
-                <Description>GCC 9.2.0-tdm-1: The most recent TDM release of the
-	             GCC 9 series, for MinGW, with SJLJ unwinding</Description>
-                <Component base="gcc-core" name="core" id="gcc-core-9.2.0-tdm-1" unsize="85918708">
+            <Version id="gcc-10.3.0-tdm-1" name="TDM-GCC Current: 10.3.0-tdm-1">
+                <Description>GCC 10.3.0-tdm-1: The most recent TDM release of the
+	             GCC 10 series, for MinGW, with SJLJ unwinding</Description>
+                <Component base="gcc-core" name="core" id="gcc-core-10.3.0-tdm-1" unsize="116935870">
                     <Description>Required base files and C support</Description>
-                    <Archive path="https://github.com/jmeubank/tdm-gcc-src/releases/download/v9.2.0-tdm-1-sjlj/gcc-9.2.0-tdm-1-core.tar.xz" arcsize="20014736"/>
+                    <Archive path="https://github.com/jmeubank/tdm-gcc-src/releases/download/v10.3.0-tdm-1-sjlj/gcc-10.3.0-tdm-1-core.tar.xz" arcsize="29343316"/>
                 </Component>
-                <Component base="gcc-g++" name="g++" id="gcc-c++-9.2.0-tdm-1" unsize="50110933">
+                <Component base="gcc-g++" name="g++" id="gcc-c++-10.3.0-tdm-1" unsize="52961957">
                     <Description>C++ support</Description>
-                    <Archive path="https://github.com/jmeubank/tdm-gcc-src/releases/download/v9.2.0-tdm-1-sjlj/gcc-9.2.0-tdm-1-c++.tar.xz" arcsize="9219856"/>
+                    <Archive path="https://github.com/jmeubank/tdm-gcc-src/releases/download/v10.3.0-tdm-1-sjlj/gcc-10.3.0-tdm-1-c++.tar.xz" arcsize="9869860"/>
                 </Component>
-                <Component base="gcc-fortran" name="fortran" id="gcc-fortran-9.2.0-tdm-1" unsize="32232001">
+                <Component base="gcc-fortran" name="fortran" id="gcc-fortran-10.3.0-tdm-1" unsize="34860892">
                     <Description>Fortran support</Description>
-                    <Archive path="https://github.com/jmeubank/tdm-gcc-src/releases/download/v9.2.0-tdm-1-sjlj/gcc-9.2.0-tdm-1-fortran.tar.xz" arcsize="7599156"/>
+                    <Archive path="https://github.com/jmeubank/tdm-gcc-src/releases/download/v10.3.0-tdm-1-sjlj/gcc-10.3.0-tdm-1-fortran.tar.xz" arcsize="8185948"/>
                 </Component>
-                <Component base="gcc-ada" name="ada" id="gcc-ada-9.2.0-tdm-1" unsize="111100323">
+                <Component base="gcc-ada" name="ada" id="gcc-ada-10.3.0-tdm-1" unsize="118784432">
                     <Description>Ada support</Description>
-                    <Archive path="https://github.com/jmeubank/tdm-gcc-src/releases/download/v9.2.0-tdm-1-sjlj/gcc-9.2.0-tdm-1-ada.tar.xz" arcsize="18954360"/>
+                    <Archive path="https://github.com/jmeubank/tdm-gcc-src/releases/download/v10.3.0-tdm-1-sjlj/gcc-10.3.0-tdm-1-ada.tar.xz" arcsize="20342740"/>
                 </Component>
-                <Component base="gcc-objc" name="objc" id="gcc-objc-9.2.0-tdm-1" unsize="44138808">
+                <Component base="gcc-objc" name="objc" id="gcc-objc-10.3.0-tdm-1" unsize="48173886">
                     <Description>Objective-C/C++ support</Description>
-                    <Archive path="https://github.com/jmeubank/tdm-gcc-src/releases/download/v9.2.0-tdm-1-sjlj/gcc-9.2.0-tdm-1-objc.tar.xz" arcsize="12807968"/>
+                    <Archive path="https://github.com/jmeubank/tdm-gcc-src/releases/download/v10.3.0-tdm-1-sjlj/gcc-10.3.0-tdm-1-objc.tar.xz" arcsize="13834872"/>
                 </Component>
-                <Component base="gcc-openmp" name="openmp" id="gcc-openmp-9.2.0-tdm-1" unsize="1144218">
+                <Component base="gcc-openmp" name="openmp" id="gcc-openmp-10.3.0-tdm-1" unsize="1271735">
                     <Description>OpenMP support</Description>
-                    <Archive path="https://github.com/jmeubank/tdm-gcc-src/releases/download/v9.2.0-tdm-1-sjlj/gcc-9.2.0-tdm-1-openmp.tar.xz" arcsize="186032"/>
+                    <Archive path="https://github.com/jmeubank/tdm-gcc-src/releases/download/v10.3.0-tdm-1-sjlj/gcc-10.3.0-tdm-1-openmp.tar.xz" arcsize="209864"/>
                 </Component>
             </Version>
-            <Version id="gcc-9.2.0-tdm-1-dw2" name="TDM-GCC Current: 9.2.0-tdm-1-dw2">
-                <Description>GCC 9.2.0-tdm-1-dw2: The most recent TDM release of the
-	             GCC 9 series, for MinGW, with DW2 unwinding</Description>
-                <Component base="gcc-core" name="core" id="gcc-core-9.2.0-tdm-1-dw2" unsize="90574152">
+            <Version id="gcc-10.3.0-tdm-1-dw2" name="TDM-GCC Current: 10.3.0-tdm-1-dw2">
+                <Description>GCC 10.3.0-tdm-1-dw2: The most recent TDM release of the
+	             GCC 10 series, for MinGW, with DW2 unwinding</Description>
+                <Component base="gcc-core" name="core" id="gcc-core-10.3.0-tdm-1-dw2" unsize="124139738">
                     <Description>Required base files and C support</Description>
-                    <Archive path="https://github.com/jmeubank/tdm-gcc-src/releases/download/v9.2.0-tdm-1-dw2-dw2/gcc-9.2.0-tdm-1-dw2-core.tar.xz" arcsize="20970072"/>
+                    <Archive path="https://github.com/jmeubank/tdm-gcc-src/releases/download/v10.3.0-tdm-1-dw2/gcc-10.3.0-tdm-1-dw2-core.tar.xz" arcsize="31019616"/>
                 </Component>
-                <Component base="gcc-g++" name="g++" id="gcc-c++-9.2.0-tdm-1-dw2" unsize="53792643">
+                <Component base="gcc-g++" name="g++" id="gcc-c++-10.3.0-tdm-1-dw2" unsize="56994833">
                     <Description>C++ support</Description>
-                    <Archive path="https://github.com/jmeubank/tdm-gcc-src/releases/download/v9.2.0-tdm-1-dw2-dw2/gcc-9.2.0-tdm-1-dw2-c++.tar.xz" arcsize="9707220"/>
+                    <Archive path="https://github.com/jmeubank/tdm-gcc-src/releases/download/v10.3.0-tdm-1-dw2/gcc-10.3.0-tdm-1-dw2-c++.tar.xz" arcsize="10414964"/>
                 </Component>
-                <Component base="gcc-fortran" name="fortran" id="gcc-fortran-9.2.0-tdm-1-dw2" unsize="34630849">
+                <Component base="gcc-fortran" name="fortran" id="gcc-fortran-10.3.0-tdm-1-dw2" unsize="37531722">
                     <Description>Fortran support</Description>
-                    <Archive path="https://github.com/jmeubank/tdm-gcc-src/releases/download/v9.2.0-tdm-1-dw2-dw2/gcc-9.2.0-tdm-1-dw2-fortran.tar.xz" arcsize="8004988"/>
+                    <Archive path="https://github.com/jmeubank/tdm-gcc-src/releases/download/v10.3.0-tdm-1-dw2/gcc-10.3.0-tdm-1-dw2-fortran.tar.xz" arcsize="8641512"/>
                 </Component>
-                <Component base="gcc-ada" name="ada" id="gcc-ada-9.2.0-tdm-1-dw2" unsize="116533891">
+                <Component base="gcc-ada" name="ada" id="gcc-ada-10.3.0-tdm-1-dw2" unsize="124540134">
                     <Description>Ada support</Description>
-                    <Archive path="https://github.com/jmeubank/tdm-gcc-src/releases/download/v9.2.0-tdm-1-dw2-dw2/gcc-9.2.0-tdm-1-dw2-ada.tar.xz" arcsize="19686168"/>
+                    <Archive path="https://github.com/jmeubank/tdm-gcc-src/releases/download/v10.3.0-tdm-1-dw2/gcc-10.3.0-tdm-1-dw2-ada.tar.xz" arcsize="21126008"/>
                 </Component>
-                <Component base="gcc-objc" name="objc" id="gcc-objc-9.2.0-tdm-1-dw2" unsize="47922790">
+                <Component base="gcc-objc" name="objc" id="gcc-objc-10.3.0-tdm-1-dw2" unsize="52510610">
                     <Description>Objective-C/C++ support</Description>
-                    <Archive path="https://github.com/jmeubank/tdm-gcc-src/releases/download/v9.2.0-tdm-1-dw2-dw2/gcc-9.2.0-tdm-1-dw2-objc.tar.xz" arcsize="13527568"/>
+                    <Archive path="https://github.com/jmeubank/tdm-gcc-src/releases/download/v10.3.0-tdm-1-dw2/gcc-10.3.0-tdm-1-dw2-objc.tar.xz" arcsize="14648632"/>
                 </Component>
-                <Component base="gcc-openmp" name="openmp" id="gcc-openmp-9.2.0-tdm-1-dw2" unsize="1210148">
+                <Component base="gcc-openmp" name="openmp" id="gcc-openmp-10.3.0-tdm-1-dw2" unsize="1342543">
                     <Description>OpenMP support</Description>
-                    <Archive path="https://github.com/jmeubank/tdm-gcc-src/releases/download/v9.2.0-tdm-1-dw2-dw2/gcc-9.2.0-tdm-1-dw2-openmp.tar.xz" arcsize="195852"/>
+                    <Archive path="https://github.com/jmeubank/tdm-gcc-src/releases/download/v10.3.0-tdm-1-dw2/gcc-10.3.0-tdm-1-dw2-openmp.tar.xz" arcsize="220372"/>
                 </Component>
             </Version>
         </Category>
@@ -133,27 +133,27 @@ latest version.
                 <Archive path="http://osdn.net/dl/mingw/binutils-2.32-1-mingw32-info.tar.xz" arcsize="446448"/>
                 <Archive path="http://osdn.net/dl/mingw/binutils-2.32-1-mingw32-man.tar.xz" arcsize="95972"/>
                 <Archive path="http://osdn.net/dl/mingw/binutils-2.32-1-mingw32-lang.tar.xz" arcsize="1682048"/>
-                <Archive path="https://github.com/jmeubank/tdm-gcc-src/releases/download/v9.2.0-tdm-1-dw2/gcc-9.2.0-tdm-1-dw2-libgcc.tar.xz" arcsize="198660"/>
+                <Archive path="https://github.com/jmeubank/tdm-gcc-src/releases/download/v10.3.0-tdm-1-dw2/gcc-10.3.0-tdm-1-dw2-libgcc.tar.xz" arcsize="78820"/>
             </Version>
         </Component>
         <Component id="mingw-runtime" name="mingw-runtime">
             <Description>Headers and import libraries for Microsoft's C Runtime,
 			 with minimal GNU extensions</Description>
-            <Version default="true" id="mingw-runtime-5.2.3" name="MinGW recommended: 5.2.3" unsize="10837447">
-                <Description>MinGW recommended - mingwrt-5.2.3</Description>
+            <Version default="true" id="mingw-runtime-5.4.2" name="MinGW recommended: 5.4.2" unsize="10916596">
+                <Description>MinGW recommended - mingwrt-5.4.2</Description>
                 <Archive path="http://osdn.net/dl/mingw/wsl-features-20190122-1-mingw32-cfg.tar.xz" arcsize="5356"/>
-                <Archive path="http://osdn.net/dl/mingw/mingwrt-5.2.3-mingw32-dll.tar.xz" arcsize="3548"/>
-                <Archive path="http://osdn.net/dl/mingw/mingwrt-5.2.3-mingw32-dev.tar.xz" arcsize="354064"/>
-                <Archive path="http://osdn.net/dl/mingw/mingwrt-5.2.3-mingw32-lic.tar.xz" arcsize="7420"/>
-                <Archive path="http://osdn.net/dl/mingw/mingwrt-5.2.3-mingw32-man.tar.xz" arcsize="5148"/>
+                <Archive path="http://osdn.net/dl/mingw/mingwrt-5.4.2-mingw32-dll.tar.xz" arcsize="3732"/>
+                <Archive path="http://osdn.net/dl/mingw/mingwrt-5.4.2-mingw32-dev.tar.xz" arcsize="358104"/>
+                <Archive path="http://osdn.net/dl/mingw/mingwrt-5.4.2-mingw32-lic.tar.xz" arcsize="7424"/>
+                <Archive path="http://osdn.net/dl/mingw/mingwrt-5.4.2-mingw32-man.tar.xz" arcsize="13836"/>
             </Version>
         </Component>
         <Component id="w32api" name="w32api">
             <Description>Headers and import libraries for Microsoft's Win32
 			 API</Description>
-            <Version default="true" id="w32api-5.2.3" name="MinGW recommended: 5.2.3" unsize="14658276">
-                <Description>MinGW recommended - w32api-5.2.3</Description>
-                <Archive path="http://osdn.net/dl/mingw/w32api-5.2.3-mingw32-dev.tar.xz" arcsize="1158408"/>
+            <Version default="true" id="w32api-5.4.2" name="MinGW recommended: 5.4.2" unsize="14723685">
+                <Description>MinGW recommended - w32api-5.4.2</Description>
+                <Archive path="http://osdn.net/dl/mingw/w32api-5.4.2-mingw32-dev.tar.xz" arcsize="1170116"/>
             </Version>
         </Component>
         <Component id="mingw32-make" name="mingw32-make">
@@ -166,14 +166,14 @@ latest version.
                 <Archive path="http://prdownloads.sourceforge.net/mingw/make-3.82.90-2-mingw32-cvs-20120902-doc.tar.lzma?download" arcsize="187864"/>
                 <Archive path="http://prdownloads.sourceforge.net/mingw/make-3.82.90-2-mingw32-cvs-20120902-lic.tar.lzma?download" arcsize="11503"/>
                 <Archive path="http://prdownloads.sourceforge.net/mingw/make-3.82.90-2-mingw32-cvs-20120902-lang.tar.lzma?download" arcsize="92991"/>
-                <Archive path="https://github.com/jmeubank/tdm-gcc-src/releases/download/v9.2.0-tdm-1-dw2/gcc-9.2.0-tdm-1-dw2-libgcc.tar.xz" arcsize="198660"/>
+                <Archive path="https://github.com/jmeubank/tdm-gcc-src/releases/download/v10.3.0-tdm-1-dw2/gcc-10.3.0-tdm-1-dw2-libgcc.tar.xz" arcsize="78820"/>
             </Version>
         </Component>
         <Component id="gdb" name="gdb">
             <Description>GNU source-level debugger</Description>
-            <Version default="true" id="gdb32-8.3.1-tdm-1" name="Stable Release: 8.3.1-tdm-1" unsize="44512787">
-                <Description>Current Release - gdb32-8.3.1-tdm-1 (Python enabled)</Description>
-                <Archive path="https://github.com/jmeubank/tdm-binutils-gdb/releases/download/v8.3.1-tdm-1/gdb32-8.3.1-tdm-1.tar.xz" arcsize="12325904"/>
+            <Version default="true" id="gdb32-10.2-tdm-1" name="Stable Release: 10.2-tdm-1" unsize="50302062">
+                <Description>Current Release - gdb32-10.2-tdm-1 (Python enabled)</Description>
+                <Archive path="https://github.com/jmeubank/tdm-binutils-gdb/releases/download/v10.2-tdm-1/gdb32-10.2-tdm-1.tar.xz" arcsize="14542100"/>
             </Version>
             <Version id="gdb-7.6.1-1" name="MinGW recommended: 7.6.1-1" unsize="40784078">
                 <Description>Current Release - gdb-7.6.1-1</Description>
@@ -190,42 +190,42 @@ latest version.
             <Description>Add a default compatibility manifest to all compiled EXEs and DLLs</Description>
             <Version default="true" id="windows-default-manifest-6.4-x86" name="TDM Current: 6.4" unsize="1590">
                 <Description>Current release - 6.4</Description>
-                <Archive path="https://github.com/jmeubank/windows-default-manifest/releases/download/v6.4-x86/windows-default-manifest-6.4-x86.tar.xz" arcsize="944"/>
+                <Archive path="https://github.com/jmeubank/windows-default-manifest/releases/download/v6.4-x86/windows-default-manifest-6.4-x86.tar.xz" arcsize="940"/>
             </Version>
         </Component>
         <InstallType default="true" id="tdmrec" name="TDM-GCC Recommended, C/C++">
-            <Select id="gcc-core-9.2.0-tdm-1"/>
-            <Select id="gcc-c++-9.2.0-tdm-1"/>
+            <Select id="gcc-core-10.3.0-tdm-1"/>
+            <Select id="gcc-c++-10.3.0-tdm-1"/>
             <Select id="binutils-2.32-1"/>
-            <Select id="mingw-runtime-5.2.3"/>
-            <Select id="w32api-5.2.3"/>
+            <Select id="mingw-runtime-5.4.2"/>
+            <Select id="w32api-5.4.2"/>
             <Select id="mingw32-make-3.82.90-2-mingw32-cvs-20120902"/>
-            <Select id="gdb32-8.3.1-tdm-1"/>
+            <Select id="gdb32-10.2-tdm-1"/>
             <Select id="windows-default-manifest-6.4-x86"/>
         </InstallType>
         <InstallType id="mingwstable" name="MinGW Stable, C/C++">
-            <Select id="gcc-core-8.2.0-5"/>
-            <Select id="gcc-c++-8.2.0-5"/>
+            <Select id="gcc-core-9.2.0-2"/>
+            <Select id="gcc-c++-9.2.0-2"/>
             <Select id="binutils-2.32-1"/>
-            <Select id="mingw-runtime-5.2.3"/>
-            <Select id="w32api-5.2.3"/>
+            <Select id="mingw-runtime-5.4.2"/>
+            <Select id="w32api-5.4.2"/>
             <Select id="mingw32-make-3.82.90-2-mingw32-cvs-20120902"/>
             <Select id="gdb-7.6.1-1"/>
         </InstallType>
         <InstallType id="tdmrecall" name="TDM-GCC Recommended, All Packages">
-            <SelectTree id="gcc-9.2.0-tdm-1"/>
+            <SelectTree id="gcc-10.3.0-tdm-1"/>
             <Select id="binutils-2.32-1"/>
-            <Select id="mingw-runtime-5.2.3"/>
-            <Select id="w32api-5.2.3"/>
+            <Select id="mingw-runtime-5.4.2"/>
+            <Select id="w32api-5.4.2"/>
             <Select id="mingw32-make-3.82.90-2-mingw32-cvs-20120902"/>
-            <Select id="gdb32-8.3.1-tdm-1"/>
+            <Select id="gdb32-10.2-tdm-1"/>
             <Select id="windows-default-manifest-6.4-x86"/>
         </InstallType>
         <InstallType id="mingwstableall" name="MinGW Stable, All Packages">
-            <SelectTree id="gcc-8.2.0-5"/>
+            <SelectTree id="gcc-9.2.0-2"/>
             <Select id="binutils-2.32-1"/>
-            <Select id="mingw-runtime-5.2.3"/>
-            <Select id="w32api-5.2.3"/>
+            <Select id="mingw-runtime-5.4.2"/>
+            <Select id="w32api-5.4.2"/>
             <Select id="mingw32-make-3.82.90-2-mingw32-cvs-20120902"/>
             <Select id="gdb-7.6.1-1"/>
         </InstallType>
@@ -237,32 +237,36 @@ latest version.
 		 64-bit	Windows.)</Description>
         <Category id="gcc" name="gcc">
             <Description>The GNU Compiler Collection (Windows native)</Description>
-            <Version default="true" id="gcc-9.2.0-tdm64-1" name="TDM64 Current: 9.2.0-tdm64-1">
-                <Description>Current Release - gcc-9.2.0-tdm64-1: The most
+            <Version default="true" id="gcc-10.3.0-tdm64-1" name="TDM64 Current: 10.3.0-tdm64-1">
+                <Description>Current Release - gcc-10.3.0-tdm64-1: The most
                  recent TDM64/MinGW-w64 release of GCC for MinGW</Description>
-                <Component base="gcc-core" name="core" id="gcc-core-9.2.0-tdm64-1" unsize="85072931">
+                <Component base="gcc-core" name="core" id="gcc-core-10.3.0-tdm64-1" unsize="131183413">
                     <Description>Required base files and C support</Description>
-                    <Archive path="https://github.com/jmeubank/tdm-gcc-src/releases/download/v9.2.0-tdm64-1/gcc-9.2.0-tdm64-1-core.tar.xz" arcsize="20818156"/>
+                    <Archive path="https://github.com/jmeubank/tdm-gcc-src/releases/download/v10.3.0-tdm64-1/gcc-10.3.0-tdm64-1-core.tar.xz" arcsize="33275412"/>
                 </Component>
-                <Component base="gcc-c++" name="c++" id="gcc-c++-9.2.0-tdm64-1" unsize="64223240">
+                <Component base="gcc-c++" name="c++" id="gcc-c++-10.3.0-tdm64-1" unsize="70237854">
                     <Description>C++ support</Description>
-                    <Archive path="https://github.com/jmeubank/tdm-gcc-src/releases/download/v9.2.0-tdm64-1/gcc-9.2.0-tdm64-1-c++.tar.xz" arcsize="10394784"/>
+                    <Archive path="https://github.com/jmeubank/tdm-gcc-src/releases/download/v10.3.0-tdm64-1/gcc-10.3.0-tdm64-1-c++.tar.xz" arcsize="11617584"/>
                 </Component>
-                <Component base="gcc-fortran" name="fortran" id="gcc-fortran-9.2.0-tdm64-1" unsize="41195438">
+                <Component base="gcc-fortran" name="fortran" id="gcc-fortran-10.3.0-tdm64-1" unsize="46430320">
                     <Description>Fortran support</Description>
-                    <Archive path="https://github.com/jmeubank/tdm-gcc-src/releases/download/v9.2.0-tdm64-1/gcc-9.2.0-tdm64-1-fortran.tar.xz" arcsize="8755476"/>
+                    <Archive path="https://github.com/jmeubank/tdm-gcc-src/releases/download/v10.3.0-tdm64-1/gcc-10.3.0-tdm64-1-fortran.tar.xz" arcsize="10202972"/>
                 </Component>
-                <Component base="gcc-ada" name="ada" id="gcc-ada-9.2.0-tdm64-1" unsize="186830405">
+                <Component base="gcc-ada" name="ada" id="gcc-ada-10.3.0-tdm64-1" unsize="203724805">
                     <Description>Ada support</Description>
-                    <Archive path="https://github.com/jmeubank/tdm-gcc-src/releases/download/v9.2.0-tdm64-1/gcc-9.2.0-tdm64-1-ada.tar.xz" arcsize="28898060"/>
+                    <Archive path="https://github.com/jmeubank/tdm-gcc-src/releases/download/v10.3.0-tdm64-1/gcc-10.3.0-tdm64-1-ada.tar.xz" arcsize="31761808"/>
                 </Component>
-                <Component base="gcc-objc" name="objc" id="gcc-objc-9.2.0-tdm64-1" unsize="45340029">
+                <Component base="gcc-objc" name="objc" id="gcc-objc-10.3.0-tdm64-1" unsize="52561537">
                     <Description>Objective-C/C++ support</Description>
-                    <Archive path="https://github.com/jmeubank/tdm-gcc-src/releases/download/v9.2.0-tdm64-1/gcc-9.2.0-tdm64-1-objc.tar.xz" arcsize="13037016"/>
+                    <Archive path="https://github.com/jmeubank/tdm-gcc-src/releases/download/v10.3.0-tdm64-1/gcc-10.3.0-tdm64-1-objc.tar.xz" arcsize="14807572"/>
                 </Component>
-                <Component base="gcc-openmp" name="openmp" id="gcc-openmp-9.2.0-tdm64-1" unsize="2032875">
+                <Component base="gcc-openmp" name="openmp" id="gcc-openmp-10.3.0-tdm64-1" unsize="2323576">
                     <Description>OpenMP support (libgomp)</Description>
-                    <Archive path="https://github.com/jmeubank/tdm-gcc-src/releases/download/v9.2.0-tdm64-1/gcc-9.2.0-tdm64-1-openmp.tar.xz" arcsize="292604"/>
+                    <Archive path="https://github.com/jmeubank/tdm-gcc-src/releases/download/v10.3.0-tdm64-1/gcc-10.3.0-tdm64-1-openmp.tar.xz" arcsize="358740"/>
+                </Component>
+                <Component base="gcc-jit" name="gccjit" id="gcc-jit-10.3.0-tdm64-1" unsize="42430149">
+                    <Description>JIT support (libgccjit)</Description>
+                    <Archive path="https://github.com/jmeubank/tdm-gcc-src/releases/download/v10.3.0-tdm64-1/gcc-10.3.0-tdm64-1-jit.tar.xz" arcsize="7531772"/>
                 </Component>
             </Version>
         </Category>
@@ -270,17 +274,17 @@ latest version.
             <Description>GNU Binutils: required for creating executables, DLLs,
 			 or static libraries; includes other miscellaneous
 			 tools</Description>
-            <Version default="true" id="binutils-2.33.1-tdm64-1" name="Binutils: 2.33.1-tdm64-1" unsize="41572165">
-                <Description>Current Release - binutils-2.33.1-tdm64-1</Description>
-                <Archive path="https://github.com/jmeubank/tdm-binutils-gdb/releases/download/v2.33.1-tdm64-1/binutils-2.33.1-tdm64-1.tar.xz" arcsize="3465340"/>
+            <Version default="true" id="binutils-2.36.1-tdm64-1" name="Binutils: 2.36.1-tdm64-1" unsize="61234806">
+                <Description>Current Release - binutils-2.36.1-tdm64-1</Description>
+                <Archive path="https://github.com/jmeubank/tdm-binutils-gdb/releases/download/v2.36.1-tdm64-1/binutils-2.36.1-tdm64-1.tar.xz" arcsize="6508264"/>
             </Version>
         </Component>
         <Component id="mingw64-runtime" name="mingw64-runtime">
             <Description>Headers and import libraries for Microsoft's C Runtime
 			 and Windows APIs, with minimal GNU extensions</Description>
-            <Version default="true" id="mingw64-runtime-v7-git20191109-gcc9-tdm64-1" name="MinGW-w64 Runtime Snapshot: v7-git20191109-gcc9-tdm64-1" unsize="205062863">
-                <Description>MinGW-w64 git-v7.x for GCC 9 multilib</Description>
-                <Archive path="https://github.com/jmeubank/mingw-w64/releases/download/v7-git20191109-gcc9-tdm64-1/mingw64runtime-v7-git20191109-gcc9-tdm64-1.tar.xz" arcsize="10367644"/>
+            <Version default="true" id="mingw64-runtime-v8-git2021050601-gcc10-tdm64-1" name="MinGW-w64 Runtime Snapshot: v8-git2021050601-gcc10-tdm64-1" unsize="208722036">
+                <Description>MinGW-w64 git-v8.x for GCC 10 multilib</Description>
+                <Archive path="https://github.com/jmeubank/mingw-w64/releases/download/v8-git2021050601-gcc10-tdm64-1/mingw64runtime-v8-git2021050601-gcc10-tdm64-1.tar.xz" arcsize="10552840"/>
             </Version>
         </Component>
         <Component id="mingw32-make" name="mingw32-make">
@@ -293,46 +297,46 @@ latest version.
                 <Archive path="http://prdownloads.sourceforge.net/mingw/make-3.82.90-2-mingw32-cvs-20120902-doc.tar.lzma?download" arcsize="187864"/>
                 <Archive path="http://prdownloads.sourceforge.net/mingw/make-3.82.90-2-mingw32-cvs-20120902-lic.tar.lzma?download" arcsize="11503"/>
                 <Archive path="http://prdownloads.sourceforge.net/mingw/make-3.82.90-2-mingw32-cvs-20120902-lang.tar.lzma?download" arcsize="92991"/>
-                <Archive path="https://github.com/jmeubank/tdm-gcc-src/releases/download/v9.2.0-tdm-1-dw2/gcc-9.2.0-tdm-1-dw2-libgcc.tar.xz" arcsize="198660"/>
+                <Archive path="https://github.com/jmeubank/tdm-gcc-src/releases/download/v10.3.0-tdm-1-dw2/gcc-10.3.0-tdm-1-dw2-libgcc.tar.xz" arcsize="78820"/>
             </Version>
         </Component>
         <Component id="mingw64-gdb" name="gdb">
             <Description>GNU source-level debugger (64-bit)</Description>
-            <Version default="true" id="gdb-8.3.1-tdm64-1" name="Stable Release: 8.3.1-tdm64-1" unsize="44923600">
-                <Description>Current Release - gdb-8.3.1-tdm64-1</Description>
-                <Archive path="https://github.com/jmeubank/tdm-binutils-gdb/releases/download/v8.3.1-tdm64-1/gdb-8.3.1-tdm64-1.tar.xz" arcsize="12779300"/>
+            <Version default="true" id="gdb-10.2-tdm64-1" name="Stable Release: 10.2-tdm64-1" unsize="56600978">
+                <Description>Current Release - gdb-10.2-tdm64-1</Description>
+                <Archive path="https://github.com/jmeubank/tdm-binutils-gdb/releases/download/v10.2-tdm64-1/gdb-10.2-tdm64-1.tar.xz" arcsize="15880288"/>
             </Version>
         </Component>
         <Component id="gdb32" name="gdb32">
             <Description>GNU source-level debugger (32-bit)</Description>
-            <Version id="gdb32-8.3.1-tdm-1" name="Stable Release: 8.3.1-tdm-1" unsize="44512787">
-                <Description>Current Release - gdb32-8.3.1-tdm-1 (Python enabled)</Description>
-                <Archive path="https://github.com/jmeubank/tdm-binutils-gdb/releases/download/v8.3.1-tdm-1/gdb32-8.3.1-tdm-1.tar.xz" arcsize="12325904"/>
+            <Version id="gdb32-10.2-tdm-1" name="Stable Release: 10.2-tdm-1" unsize="50302062">
+                <Description>Current Release - gdb32-10.2-tdm-1 (Python enabled)</Description>
+                <Archive path="https://github.com/jmeubank/tdm-binutils-gdb/releases/download/v10.2-tdm-1/gdb32-10.2-tdm-1.tar.xz" arcsize="14542100"/>
             </Version>
         </Component>
         <Component id="default-manifest" name="windows-default-manifest">
             <Description>Add a default compatibility manifest to all compiled EXEs and DLLs</Description>
             <Version default="true" id="windows-default-manifest-6.4-x86_64_multi" name="TDM64 Current: 6.4" unsize="2938">
                 <Description>Current release - 6.4</Description>
-                <Archive path="https://github.com/jmeubank/windows-default-manifest/releases/download/v6.4-x86_64_multi/windows-default-manifest-6.4-x86_64_multi.tar.xz" arcsize="988"/>
+                <Archive path="https://github.com/jmeubank/windows-default-manifest/releases/download/v6.4-x86_64_multi/windows-default-manifest-6.4-x86_64_multi.tar.xz" arcsize="984"/>
             </Version>
         </Component>
         <InstallType default="true" id="tdmrec" name="TDM-GCC Recommended, C/C++">
-            <Select id="gcc-core-9.2.0-tdm64-1"/>
-            <Select id="gcc-c++-9.2.0-tdm64-1"/>
-            <Select id="binutils-2.33.1-tdm64-1"/>
-            <Select id="mingw64-runtime-v7-git20191109-gcc9-tdm64-1"/>
+            <Select id="gcc-core-10.3.0-tdm64-1"/>
+            <Select id="gcc-c++-10.3.0-tdm64-1"/>
+            <Select id="binutils-2.36.1-tdm64-1"/>
+            <Select id="mingw64-runtime-v8-git2021050601-gcc10-tdm64-1"/>
             <Select id="mingw32-make-3.82.90-2-mingw32-cvs-20120902"/>
-            <Select id="gdb-8.3.1-tdm64-1"/>
+            <Select id="gdb-10.2-tdm64-1"/>
             <Select id="windows-default-manifest-6.4-x86_64_multi"/>
         </InstallType>
         <InstallType id="tdmrecall" name="TDM-GCC Recommended, All Packages">
-            <SelectTree id="gcc-9.2.0-tdm64-1"/>
-            <Select id="binutils-2.33.1-tdm64-1"/>
-            <Select id="mingw64-runtime-v7-git20191109-gcc9-tdm64-1"/>
+            <SelectTree id="gcc-10.3.0-tdm64-1"/>
+            <Select id="binutils-2.36.1-tdm64-1"/>
+            <Select id="mingw64-runtime-v8-git2021050601-gcc10-tdm64-1"/>
             <Select id="mingw32-make-3.82.90-2-mingw32-cvs-20120902"/>
-            <Select id="gdb-8.3.1-tdm64-1"/>
-            <Select id="gdb32-8.3.1-tdm-1"/>
+            <Select id="gdb-10.2-tdm64-1"/>
+            <Select id="gdb32-10.2-tdm-1"/>
             <Select id="windows-default-manifest-6.4-x86_64_multi"/>
         </InstallType>
     </System>
