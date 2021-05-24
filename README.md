@@ -2,7 +2,7 @@
 ![GitHub All Releases](https://img.shields.io/github/downloads/jmeubank/tdm-gcc/total?color=%2309ABF6&label=installer%20downloads)
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/jmeubank/tdm-gcc)
 
-TDM-GCC 9.2.0
+TDM-GCC 10.3.0
 
 ## COPYING ##
 
