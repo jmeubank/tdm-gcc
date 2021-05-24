@@ -56,12 +56,24 @@ ifeq ($(MPC_SRC),)
 $(error Must specify MPC_SRC)
 endif
 
-ifneq ($(GDB_SRC),)
+ifneq ($(filter gdb,$(MAKE_PACKAGES)),)
 ifeq ($(PYTHON_DIR),)
 $(error Must specify PYTHON_DIR)
 endif
 ifeq ($(PYTHON_DLL),)
 $(error Must specify PYTHON_DLL)
+endif
+ifeq ($(EXPAT_SRC),)
+$(error Must specify EXPAT_SRC)
+endif
+ifeq ($(NCURSES_SRC),)
+$(error Must specify NCURSES_SRC)
+endif
+ifeq ($(READLINE_SRC),)
+$(error Must specify READLINE_SRC)
+endif
+ifeq ($(TERMCAP_SRC),)
+$(error Must specify TERMCAP_SRC)
 endif
 endif
 
@@ -70,6 +82,8 @@ ifeq ($(DISTRIB_BASE),)
 $(error Must specify DISTRIB_BASE)
 endif
 endif
+
+JOBS_ARG :=
 
 
 ## Composited vars
@@ -222,6 +236,15 @@ STAMP_DISTRIB_LIBGCC_32_DW2_DLL := $(BUILD_BASE)/distrib/tdm32-dw2/master-stamp-
 
 STAMP_EXPAT_BUILD := $(SCRATCH)/expat/master-stamp-expat-build-$(EDITION)
 STAMP_EXPAT_STAGE_INSTALL := $(STAGING_PREFIX)/master-stamp-expat-stage-install-$(EDITION)
+
+STAMP_READLINE_BUILD := $(SCRATCH)/readline/master-stamp-readline-build-$(EDITION)
+STAMP_READLINE_STAGE_INSTALL := $(STAGING_PREFIX)/master-stamp-readline-stage-install-$(EDITION)
+
+STAMP_NCURSES_BUILD := $(SCRATCH)/expat/master-stamp-ncurses-build-$(EDITION)
+STAMP_NCURSES_STAGE_INSTALL := $(STAGING_PREFIX)/master-stamp-ncurses-stage-install-$(EDITION)
+
+STAMP_TERMCAP_BUILD := $(SCRATCH)/expat/master-stamp-termcap-build-$(EDITION)
+STAMP_TERMCAP_STAGE_INSTALL := $(STAGING_PREFIX)/master-stamp-termcap-stage-install-$(EDITION)
 
 STAMP_PYTHON_COPY := $(SCRATCH)/python_src/master-stamp-python-copy-src
 
@@ -404,7 +427,7 @@ ifeq ($(BUILD_TYPE),cross)
 	  --host=$(HOST) $(SUPPORT_SHARED_OPT) $(ABIARG) \
 	  CFLAGS="-O2 -g $(LTO_OPT)" LDFLAGS="$(LTO_OPT)" \
 	 && \
-	 $(MAKE)
+	 $(MAKE) V=1 $(JOBS_ARG)
 endif
 ifeq ($(BUILD_TYPE),native)
 ifeq ($(findstring x86_64,$(HOST)),)
@@ -419,7 +442,7 @@ ifeq ($(findstring x86_64,$(HOST)),)
 	  CXXFLAGS="-O2 $(LTO_OPT)" \
 	  LDFLAGS="-s $(LTO_OPT)" \
 	 && \
-	 $(MAKE) && $(MAKE) install
+	 $(MAKE) V=1 $(JOBS_ARG) && $(MAKE) install V=1 $(JOBS_ARG)
 else
 ifeq ($(BIARCH),1)
 	mkdir -p $(SCRATCH)/gmp/build32
@@ -433,7 +456,7 @@ ifeq ($(BIARCH),1)
 	  LD="ld.exe -m i386pe" CFLAGS="-O2 -m32 $(LTO_OPT)" \
 	  CXXFLAGS="-O2 -m32 $(LTO_OPT)" LDFLAGS="-m32 -s $(LTO_OPT)" ABI=32 \
 	 && \
-	 $(MAKE) && $(MAKE) install
+	 $(MAKE) V=1 $(JOBS_ARG) && $(MAKE) install V=1 $(JOBS_ARG)
 	export PATH="$(BUILDFROM)/bin:$(PATH)" \
 	 && \
 	 cd $(SCRATCH)/gmp/build64 \
@@ -443,7 +466,7 @@ ifeq ($(BIARCH),1)
 	  CFLAGS="-O2 $(LTO_OPT)" CXXFLAGS="-O2 $(LTO_OPT)" \
 	  LDFLAGS="-s $(LTO_OPT)" ABI=64 \
 	 && \
-	 $(MAKE) && $(MAKE) install
+	 $(MAKE) V=1 $(JOBS_ARG) && $(MAKE) install V=1 $(JOBS_ARG)
 endif
 endif
 endif
@@ -456,7 +479,7 @@ ifeq ($(BUILD_TYPE),cross)
 	 && \
 	 cd $(SCRATCH)/gmp \
 	 && \
-	 $(MAKE) install
+	 $(MAKE) V=1 $(JOBS_ARG) install
 endif
 ifeq ($(BUILD_TYPE),native)
 	$(MAKE) -f $(THIS_MAKEFILE_DIR)/install_from_stage.makefile \
@@ -471,7 +494,7 @@ ifeq ($(BUILD_TYPE),cross)
 	 && \
 	 cd $(SCRATCH)/gmp \
 	 && \
-	 $(MAKE) install prefix=$(STAGING_PREFIX)
+	 $(MAKE) V=1 $(JOBS_ARG) install prefix=$(STAGING_PREFIX)
 endif
 ifeq ($(BUILD_TYPE),native)
 	$(MAKE) -f $(THIS_MAKEFILE_DIR)/install_from_stage.makefile \
@@ -501,7 +524,7 @@ ifeq ($(BUILD_TYPE),cross)
 	  --host=$(HOST) $(SUPPORT_SHARED_OPT) \
 	  CFLAGS="-O2 -g $(LTO_OPT)" LDFLAGS="$(LTO_OPT)" \
 	 && \
-	 $(MAKE)
+	 $(MAKE) V=1 $(JOBS_ARG)
 endif
 ifeq ($(BUILD_TYPE),native)
 ifeq ($(findstring x86_64,$(HOST)),)
@@ -514,7 +537,7 @@ ifeq ($(findstring x86_64,$(HOST)),)
 	  --build=$(HOST) $(SUPPORT_SHARED_OPT) \
 	  CFLAGS="-O2 $(LTO_OPT)" LDFLAGS="-s $(LTO_OPT)" \
 	 && \
-	 $(MAKE) && $(MAKE) install
+	 $(MAKE) V=1 $(JOBS_ARG) && $(MAKE) install V=1 $(JOBS_ARG)
 else
 ifeq ($(BIARCH),1)
 	mkdir -p $(SCRATCH)/mpfr/build32
@@ -527,7 +550,7 @@ ifeq ($(BIARCH),1)
 	  --build=$(HOST) $(SUPPORT_SHARED_OPT) \
 	  CFLAGS="-O2 -m32 $(LTO_OPT)" LDFLAGS="-m32 -s $(LTO_OPT)" \
 	 && \
-	 $(MAKE) && $(MAKE) install
+	 $(MAKE) V=1 $(JOBS_ARG) && $(MAKE) install V=1 $(JOBS_ARG)
 	export PATH="$(BUILDFROM)/bin:$(BUILDFROM)/$(HOST)/bin:$(PATH)" \
 	 && \
 	 cd $(SCRATCH)/mpfr/build64 \
@@ -536,7 +559,7 @@ ifeq ($(BIARCH),1)
 	  --build=$(HOST) $(SUPPORT_SHARED_OPT) \
 	  CFLAGS="-I$(SCRATCH)/gmp/stage/64/include -O2 $(LTO_OPT)" LDFLAGS="-s $(LTO_OPT)" \
 	 && \
-	 $(MAKE) && $(MAKE) install
+	 $(MAKE) V=1 $(JOBS_ARG) && $(MAKE) install V=1 $(JOBS_ARG)
 endif
 endif
 endif
@@ -549,7 +572,7 @@ ifeq ($(BUILD_TYPE),cross)
 	 && \
 	 cd $(SCRATCH)/mpfr \
 	 && \
-	 $(MAKE) install
+	 $(MAKE) install V=1 $(JOBS_ARG)
 endif
 ifeq ($(BUILD_TYPE),native)
 	$(MAKE) -f $(THIS_MAKEFILE_DIR)/install_from_stage.makefile \
@@ -564,7 +587,7 @@ ifeq ($(BUILD_TYPE),cross)
 	 && \
 	 cd $(SCRATCH)/mpfr \
 	 && \
-	 $(MAKE) install prefix=$(STAGING_PREFIX)
+	 $(MAKE) V=1 $(JOBS_ARG) install prefix=$(STAGING_PREFIX)
 endif
 ifeq ($(BUILD_TYPE),native)
 	$(MAKE) -f $(THIS_MAKEFILE_DIR)/install_from_stage.makefile \
@@ -595,7 +618,7 @@ ifeq ($(BUILD_TYPE),cross)
 	  --host=$(HOST) $(SUPPORT_SHARED_OPT) \
 	  CFLAGS="-O2 -g $(LTO_OPT)" LDFLAGS="$(LTO_OPT)" \
 	 && \
-	 $(MAKE)
+	 $(MAKE) V=1 $(JOBS_ARG)
 endif
 ifeq ($(BUILD_TYPE),native)
 ifeq ($(findstring x86_64,$(HOST)),)
@@ -608,9 +631,9 @@ ifeq ($(findstring x86_64,$(HOST)),)
 	  --build=$(HOST) $(SUPPORT_SHARED_OPT) \
 	  CFLAGS="-O2 $(LTO_OPT)" LDFLAGS="-s $(LTO_OPT)" \
 	 && \
-	 $(MAKE) LDFLAGS="-s -no-undefined" \
+	 $(MAKE) V=1 $(JOBS_ARG) LDFLAGS="-s -no-undefined" \
 	 && \
-	 $(MAKE) install
+	 $(MAKE) V=1 $(JOBS_ARG) install
 else
 ifeq ($(BIARCH),1)
 	mkdir -p $(SCRATCH)/mpc/build32
@@ -623,9 +646,9 @@ ifeq ($(BIARCH),1)
 	  --build=$(HOST) $(SUPPORT_SHARED_OPT) \
 	  CFLAGS="-O2 -m32 $(LTO_OPT)" LDFLAGS="-m32 -s $(LTO_OPT)" \
 	 && \
-	 $(MAKE) LDFLAGS="-s -no-undefined" \
+	 $(MAKE) V=1 $(JOBS_ARG) LDFLAGS="-s -no-undefined" \
 	 && \
-	 $(MAKE) install
+	 $(MAKE) V=1 $(JOBS_ARG) install
 	export PATH="$(BUILDFROM)/bin:$(BUILDFROM)/$(HOST)/bin:$(PATH)" \
 	 && \
 	 cd $(SCRATCH)/mpc/build64 \
@@ -634,9 +657,9 @@ ifeq ($(BIARCH),1)
 	  --build=$(HOST) $(SUPPORT_SHARED_OPT) \
 	  CFLAGS="-O2 $(LTO_OPT)" LDFLAGS="-s $(LTO_OPT)" \
 	 && \
-	 $(MAKE) LDFLAGS="-s -no-undefined" \
+	 $(MAKE) V=1 $(JOBS_ARG) LDFLAGS="-s -no-undefined" \
 	 && \
-	 $(MAKE) install
+	 $(MAKE) V=1 $(JOBS_ARG) install
 endif
 endif
 endif
@@ -649,7 +672,7 @@ ifeq ($(BUILD_TYPE),cross)
 	 && \
 	 cd $(SCRATCH)/mpc \
 	 && \
-	 $(MAKE) install
+	 $(MAKE) V=1 $(JOBS_ARG) install
 endif
 ifeq ($(BUILD_TYPE),native)
 	$(MAKE) -f $(THIS_MAKEFILE_DIR)/install_from_stage.makefile \
@@ -664,7 +687,7 @@ ifeq ($(BUILD_TYPE),cross)
 	 && \
 	 cd $(SCRATCH)/mpc \
 	 && \
-	 $(MAKE) install prefix=$(STAGING_PREFIX)
+	 $(MAKE) V=1 $(JOBS_ARG) install prefix=$(STAGING_PREFIX)
 endif
 ifeq ($(BUILD_TYPE),native)
 	$(MAKE) -f $(THIS_MAKEFILE_DIR)/install_from_stage.makefile \
@@ -698,9 +721,9 @@ ifeq ($(findstring x86_64,$(HOST)),)
 	  CFLAGS="-O2 $(LTO_OPT)" CXXFLAGS="-O2 $(LTO_OPT)" \
 	  LDFLAGS="-s $(LTO_OPT)" \
 	 && \
-	 $(MAKE) LDFLAGS="-s -no-undefined" \
+	 $(MAKE) V=1 $(JOBS_ARG) LDFLAGS="-s -no-undefined" \
 	 && \
-	 $(MAKE) install
+	 $(MAKE) V=1 $(JOBS_ARG) install
 else
 ifeq ($(BIARCH),1)
 	mkdir -p $(SCRATCH)/isl/build32
@@ -714,9 +737,10 @@ ifeq ($(BIARCH),1)
 	  CFLAGS="-O2 -m32 $(LTO_OPT)" CXXFLAGS="-O2 -m32 $(LTO_OPT)" \
 	  LDFLAGS="-s -m32 $(LTO_OPT)" \
 	 && \
-	 $(MAKE) LDFLAGS="-s -no-undefined" \
+	 $(MAKE) V=1 $(JOBS_ARG) LDFLAGS="-s -m32 $(LTO_OPT) -no-undefined" \
+	  CFLAGS="-O2 -m32 $(LTO_OPT)" CXXFLAGS="-O2 -m32 $(LTO_OPT)" \
 	 && \
-	 $(MAKE) install
+	 $(MAKE) V=1 $(JOBS_ARG) install
 	export PATH="$(BUILDFROM)/bin:$(BUILDFROM)/$(HOST)/bin:$(PATH)" \
 	 && \
 	 cd $(SCRATCH)/isl/build64 \
@@ -726,9 +750,10 @@ ifeq ($(BIARCH),1)
 	  CFLAGS="-O2 $(LTO_OPT)" CXXFLAGS="-O2 $(LTO_OPT)" \
 	  LDFLAGS="-s $(LTO_OPT)" \
 	 && \
-	 $(MAKE) LDFLAGS="-s -no-undefined" \
+	 $(MAKE) V=1 $(JOBS_ARG) LDFLAGS="-s $(LTO_OPT) -no-undefined" \
+	  CFLAGS="-O2 $(LTO_OPT)" CXXFLAGS="-O2 $(LTO_OPT)" \
 	 && \
-	 $(MAKE) install
+	 $(MAKE) V=1 $(JOBS_ARG) install
 endif
 endif
 endif
@@ -850,7 +875,7 @@ ifeq ($(BUILD_TYPE),cross)
 	  --host=$(HOST) $(SUPPORT_SHARED_OPT) \
 	  CFLAGS="-O2 -g $(LTO_OPT)" LDFLAGS="$(LTO_OPT)" \
 	 && \
-	 $(MAKE)
+	 $(MAKE) V=1 $(JOBS_ARG)
 endif
 ifeq ($(BUILD_TYPE),native)
 ifeq ($(findstring x86_64,$(HOST)),)
@@ -863,7 +888,7 @@ ifeq ($(findstring x86_64,$(HOST)),)
 	  --build=$(HOST) --host=$(HOST) $(SUPPORT_SHARED_OPT) \
 	  CFLAGS="-O2 $(LTO_OPT)" LDFLAGS="-s $(LTO_OPT)" \
 	 && \
-	 $(MAKE) && $(MAKE) install
+	 $(MAKE)  V=1 $(JOBS_ARG) && $(MAKE) install V=1 $(JOBS_ARG)
 else
 ifeq ($(BIARCH),1)
 	mkdir -p $(SCRATCH)/libiconv/build32
@@ -877,7 +902,7 @@ ifeq ($(BIARCH),1)
 	  CFLAGS="-O2 -m32 $(LTO_OPT)" LDFLAGS="-s -m32 $(LTO_OPT)" \
 	  RC="windres -F pe-i386" WINDRES="windres -F pe-i386" \
 	 && \
-	 $(MAKE) && $(MAKE) install
+	 $(MAKE) V=1 $(JOBS_ARG) && $(MAKE) install V=1 $(JOBS_ARG)
 	export PATH="$(BUILDFROM)/bin:$(PATH)" \
 	 && \
 	 cd $(SCRATCH)/libiconv/build64 \
@@ -886,7 +911,7 @@ ifeq ($(BIARCH),1)
 	  --build=$(HOST) --host=$(HOST) --enable-shared=no \
 	  CFLAGS="-O2 $(LTO_OPT)" LDFLAGS="-s $(LTO_OPT)" \
 	 && \
-	 $(MAKE) && $(MAKE) install
+	 $(MAKE) V=1 $(JOBS_ARG) && $(MAKE) V=1 $(JOBS_ARG) install
 endif
 endif
 endif
@@ -899,7 +924,7 @@ ifeq ($(BUILD_TYPE),cross)
 	 && \
 	 cd $(SCRATCH)/libiconv \
 	 && \
-	 $(MAKE) install
+	 $(MAKE) V=1 $(JOBS_ARG) install
 endif
 ifeq ($(BUILD_TYPE),native)
 	$(MAKE) -f $(THIS_MAKEFILE_DIR)/install_from_stage.makefile \
@@ -914,7 +939,7 @@ ifeq ($(BUILD_TYPE),cross)
 	 && \
 	 cd $(SCRATCH)/libiconv \
 	 && \
-	 $(MAKE) install prefix=$(STAGING_PREFIX)
+	 $(MAKE) install prefix=$(STAGING_PREFIX) V=1 $(JOBS_ARG)
 endif
 ifeq ($(BUILD_TYPE),native)
 	$(MAKE) -f $(THIS_MAKEFILE_DIR)/install_from_stage.makefile \
@@ -938,41 +963,41 @@ $(STAMP_ZSTD_BUILD): $(STAMP_HOST_TOOLCHAIN_COPY)
 ifeq ($(BUILD_TYPE),cross)
 	export PATH="$(BUILDFROM)/bin:$(PATH)" \
 	 && \
-	 cp -Rp $(ZSTD_SRC)/lib/* $(SCRATCH)/zstd/ \
+	 cp -Rp $(ZSTD_SRC)/* $(SCRATCH)/zstd/ \
 	 && \
 	 cd $(SCRATCH)/zstd \
 	 && \
-	 $(MAKE) CC=gcc CFLAGS="-O2 -g $(LTO_OPT)" LDFLAGS="$(LTO_OPT)"
+	 $(MAKE) V=1 $(JOBS_ARG) CC=gcc CFLAGS="-O2 -g $(LTO_OPT)" LDFLAGS="$(LTO_OPT)" lib-release
 endif
 ifeq ($(BUILD_TYPE),native)
 ifeq ($(findstring x86_64,$(HOST)),)
 	mkdir -p $(SCRATCH)/zstd/build
 	export PATH="$(BUILDFROM)/bin:$(PATH)" \
 	 && \
-	 cp -Rp $(ZSTD_SRC)/lib/* $(SCRATCH)/zstd/build/ \
+	 cp -Rp $(ZSTD_SRC)/* $(SCRATCH)/zstd/build/ \
 	 && \
 	 cd $(SCRATCH)/zstd/build \
 	 && \
-	 $(MAKE) CC=gcc CFLAGS="-O3 $(LTO_OPT)" LDFLAGS="-s $(LTO_OPT)"
+	 $(MAKE) V=1 $(JOBS_ARG) CC=gcc CFLAGS="-O3 $(LTO_OPT)" LDFLAGS="-s $(LTO_OPT)" lib-release
 else
 ifeq ($(BIARCH),1)
 	mkdir -p $(SCRATCH)/zstd/build32
 	mkdir -p $(SCRATCH)/zstd/build64
 	export PATH="$(BUILDFROM)/bin:$(PATH)" \
 	 && \
-	 cp -Rp $(ZSTD_SRC)/lib/* $(SCRATCH)/zstd/build32/ \
+	 cp -Rp $(ZSTD_SRC)/* $(SCRATCH)/zstd/build32/ \
 	 && \
 	 cd $(SCRATCH)/zstd/build32 \
 	 && \
-	 $(MAKE) CC=gcc CFLAGS="-O3 -m32 $(LTO_OPT)" LDFLAGS="-s -m32 $(LTO_OPT)" \
-	  RC="windres -F pe-i386" WINDRES="windres -F pe-i386"
+	 $(MAKE) V=1 $(JOBS_ARG) CC=gcc CFLAGS="-O3 -m32 $(LTO_OPT)" LDFLAGS="-s -m32 $(LTO_OPT)" \
+	  RC="windres -F pe-i386" WINDRES="windres -F pe-i386" lib-release
 	export PATH="$(BUILDFROM)/bin:$(PATH)" \
 	 && \
-	 cp -Rp $(ZSTD_SRC)/lib/* $(SCRATCH)/zstd/build64/ \
+	 cp -Rp $(ZSTD_SRC)/* $(SCRATCH)/zstd/build64/ \
 	 && \
 	 cd $(SCRATCH)/zstd/build64 \
 	 && \
-	 $(MAKE) CC=gcc CFLAGS="-O3 $(LTO_OPT)" LDFLAGS="-s $(LTO_OPT)"
+	 $(MAKE) V=1 $(JOBS_ARG) CC=gcc CFLAGS="-O3 $(LTO_OPT)" LDFLAGS="-s $(LTO_OPT)" lib-release
 endif
 endif
 endif
@@ -981,7 +1006,7 @@ endif
 $(STAMP_ZSTD_HOST_INSTALL): $(STAMP_ZSTD_BUILD)
 	@echo "=== gccmaster: Install zstd in scratch toolchain ==="
 ifeq ($(BUILD_TYPE),cross)
-	cd $(SCRATCH)/zstd \
+	cd $(SCRATCH)/zstd/lib \
 	 && \
 	 install -d -m 755 $(BUILDFROM)/$(HOST)/include/ && \
 	 install -m 644 zstd.h $(BUILDFROM)/$(HOST)/include/ && \
@@ -990,13 +1015,13 @@ ifeq ($(BUILD_TYPE),cross)
 	 install -m 644 dictBuilder/zdict.h $(BUILDFROM)/$(HOST)/include/ && \
 	 install -d -m 755 $(BUILDFROM)/$(HOST)/lib/ && \
 	 install -m 644 libzstd.a $(BUILDFROM)/$(HOST)/lib/ && \
-	 install -m 644 dll/libzstd.lib $(BUILDFROM)/$(HOST)/lib/libzstd.dll.a && \
+	 install -m 644 dll/libzstd.dll.a $(BUILDFROM)/$(HOST)/lib/libzstd.dll.a && \
 	 install -d -m 755 $(BUILDFROM)/$(HOST)/bin/ && \
 	 install dll/libzstd.dll $(BUILDFROM)/$(HOST)/bin/
 endif
 ifeq ($(BUILD_TYPE),native)
 ifeq ($(BIARCH),1)
-	cd $(SCRATCH)/zstd/build64 \
+	cd $(SCRATCH)/zstd/build64/lib \
 	 && \
 	 install -d -m 755 $(BUILDFROM)/$(HOST)/include/ && \
 	 install -m 644 zstd.h $(BUILDFROM)/$(HOST)/include/ && \
@@ -1005,18 +1030,18 @@ ifeq ($(BIARCH),1)
 	 install -m 644 dictBuilder/zdict.h $(BUILDFROM)/$(HOST)/include/ && \
 	 install -d -m 755 $(BUILDFROM)/$(HOST)/lib/ && \
 	 install -m 644 libzstd.a $(BUILDFROM)/$(HOST)/lib/ && \
-	 install -m 644 dll/libzstd.lib $(BUILDFROM)/$(HOST)/lib/libzstd.dll.a && \
+	 install -m 644 dll/libzstd.dll.a $(BUILDFROM)/$(HOST)/lib/libzstd.dll.a && \
 	 install -d -m 755 $(BUILDFROM)/$(HOST)/bin/ && \
 	 install dll/libzstd.dll $(BUILDFROM)/$(HOST)/bin/
-	cd $(SCRATCH)/zstd/build32 \
+	cd $(SCRATCH)/zstd/build32/lib \
 	 && \
 	 install -d -m 755 $(BUILDFROM)/$(HOST)/lib32/ && \
 	 install -m 644 libzstd.a $(BUILDFROM)/$(HOST)/lib32/ && \
-	 install -m 644 dll/libzstd.lib $(BUILDFROM)/$(HOST)/lib32/libzstd.dll.a && \
+	 install -m 644 dll/libzstd.dll.a $(BUILDFROM)/$(HOST)/lib32/libzstd.dll.a && \
 	 install -d -m 755 $(BUILDFROM)/$(HOST)/bin32/ && \
 	 install dll/libzstd.dll $(BUILDFROM)/$(HOST)/bin32/
 else
-	cd $(SCRATCH)/zstd/build \
+	cd $(SCRATCH)/zstd/build/lib \
 	 && \
 	 install -d -m 755 $(BUILDFROM)/$(HOST)/include/ && \
 	 install -m 644 zstd.h $(BUILDFROM)/$(HOST)/include/ && \
@@ -1025,7 +1050,7 @@ else
 	 install -m 644 dictBuilder/zdict.h $(BUILDFROM)/$(HOST)/include/ && \
 	 install -d -m 755 $(BUILDFROM)/$(HOST)/lib/ && \
 	 install -m 644 libzstd.a $(BUILDFROM)/$(HOST)/lib/ && \
-	 install -m 644 dll/libzstd.lib $(BUILDFROM)/$(HOST)/lib/libzstd.dll.a && \
+	 install -m 644 dll/libzstd.dll.a $(BUILDFROM)/$(HOST)/lib/libzstd.dll.a && \
 	 install -d -m 755 $(BUILDFROM)/$(HOST)/bin/ && \
 	 install dll/libzstd.dll $(BUILDFROM)/$(HOST)/bin/
 endif
@@ -1035,7 +1060,7 @@ endif
 $(STAMP_ZSTD_STAGE_INSTALL): $(STAMP_ZSTD_BUILD)
 	@echo "=== gccmaster: Install zstd in staging prefix ==="
 ifeq ($(BUILD_TYPE),cross)
-	cd $(SCRATCH)/zstd \
+	cd $(SCRATCH)/zstd/lib \
 	 && \
 	 install -d -m 755 $(STAGING_PREFIX)/include/ && \
 	 install -m 644 zstd.h $(STAGING_PREFIX)/include/ && \
@@ -1044,13 +1069,13 @@ ifeq ($(BUILD_TYPE),cross)
 	 install -m 644 dictBuilder/zdict.h $(STAGING_PREFIX)/include/ && \
 	 install -d -m 755 $(STAGING_PREFIX)/lib/ && \
 	 install -m 644 libzstd.a $(STAGING_PREFIX)/lib/ && \
-	 install -m 644 dll/libzstd.lib $(STAGING_PREFIX)/lib/libzstd.dll.a && \
+	 install -m 644 dll/libzstd.dll.a $(STAGING_PREFIX)/lib/libzstd.dll.a && \
 	 install -d -m 755 $(STAGING_PREFIX)/bin/ && \
 	 install dll/libzstd.dll $(STAGING_PREFIX)/bin/
 endif
 ifeq ($(BUILD_TYPE),native)
 ifeq ($(BIARCH),1)
-	cd $(SCRATCH)/zstd/build64 \
+	cd $(SCRATCH)/zstd/build64/lib \
 	 && \
 	 install -d -m 755 $(STAGING_PREFIX)/$(HOST)/include/ && \
 	 install -m 644 zstd.h $(STAGING_PREFIX)/$(HOST)/include/ && \
@@ -1059,18 +1084,18 @@ ifeq ($(BIARCH),1)
 	 install -m 644 dictBuilder/zdict.h $(STAGING_PREFIX)/$(HOST)/include/ && \
 	 install -d -m 755 $(STAGING_PREFIX)/$(HOST)/lib/ && \
 	 install -m 644 libzstd.a $(STAGING_PREFIX)/$(HOST)/lib/ && \
-	 install -m 644 dll/libzstd.lib $(STAGING_PREFIX)/$(HOST)/lib/libzstd.dll.a && \
+	 install -m 644 dll/libzstd.dll.a $(STAGING_PREFIX)/$(HOST)/lib/libzstd.dll.a && \
 	 install -d -m 755 $(STAGING_PREFIX)/$(HOST)/bin/ && \
 	 install dll/libzstd.dll $(STAGING_PREFIX)/$(HOST)/bin/
-	cd $(SCRATCH)/zstd/build32 \
+	cd $(SCRATCH)/zstd/build32/lib \
 	 && \
 	 install -d -m 755 $(STAGING_PREFIX)/$(HOST)/lib32/ && \
 	 install -m 644 libzstd.a $(STAGING_PREFIX)/$(HOST)/lib32/ && \
-	 install -m 644 dll/libzstd.lib $(STAGING_PREFIX)/$(HOST)/lib32/libzstd.dll.a && \
+	 install -m 644 dll/libzstd.dll.a $(STAGING_PREFIX)/$(HOST)/lib32/libzstd.dll.a && \
 	 install -d -m 755 $(STAGING_PREFIX)/$(HOST)/bin32/ && \
 	 install dll/libzstd.dll $(STAGING_PREFIX)/$(HOST)/bin32/
 else
-	cd $(SCRATCH)/zstd \
+	cd $(SCRATCH)/zstd/build/lib \
 	 && \
 	 install -d -m 755 $(STAGING_PREFIX)/$(HOST)/include/ && \
 	 install -m 644 zstd.h $(STAGING_PREFIX)/$(HOST)/include/ && \
@@ -1079,7 +1104,7 @@ else
 	 install -m 644 dictBuilder/zdict.h $(STAGING_PREFIX)/$(HOST)/include/ && \
 	 install -d -m 755 $(STAGING_PREFIX)/$(HOST)/lib/ && \
 	 install -m 644 libzstd.a $(STAGING_PREFIX)/$(HOST)/lib/ && \
-	 install -m 644 dll/libzstd.lib $(STAGING_PREFIX)/$(HOST)/lib/libzstd.dll.a && \
+	 install -m 644 dll/libzstd.dll.a $(STAGING_PREFIX)/$(HOST)/lib/libzstd.dll.a && \
 	 install -d -m 755 $(STAGING_PREFIX)/$(HOST)/bin/ && \
 	 install dll/libzstd.dll $(STAGING_PREFIX)/$(HOST)/bin/
 endif
@@ -1136,14 +1161,12 @@ $(STAMP_WINPTHREADS_BUILD): $(STAMP_DEFAULT_MANIFEST_HOST_INSTALL)
 ifeq ($(BUILD_TYPE),cross)
 	export PATH="$(BUILDFROM)/bin:$(PATH)" \
 	 && \
-	 echo $PATH \
-	 && \
 	 cd $(SCRATCH)/winpthreads/build \
 	 && \
 	 $(WINPTHREADS_SRC)/configure --prefix=$(WINPTHREADS_DEFAULT_STAGE) \
 	  --build=$(HOST) --host=$(TARGET) $(RUNTIME_SHARED_OPT) CFLAGS="-O0 -g" \
 	 && \
-	 $(MAKE) && $(MAKE) install
+	 $(MAKE) V=1 $(JOBS_ARG) && $(MAKE) V=1 $(JOBS_ARG) install
 ifeq ($(BIARCH),1)
 	mkdir -p $(SCRATCH)/winpthreads/build-alt
 	export PATH="$(BUILDFROM)/bin:$(PATH)" \
@@ -1155,7 +1178,7 @@ ifeq ($(BIARCH),1)
 	  RC="windres -F pe-i386" CFLAGS="-O0 -g -m32" \
 	  LDFLAGS="-m32" \
 	 && \
-	 $(MAKE) && $(MAKE) install
+	 $(MAKE) V=1 $(JOBS_ARG) && $(MAKE) V=1 $(JOBS_ARG) install
 endif
 endif
 ifeq ($(BUILD_TYPE),native)
@@ -1167,9 +1190,9 @@ ifeq ($(BUILD_TYPE),native)
 	  --build=$(HOST) --host=$(TARGET) --enable-static --enable-shared \
 	  CFLAGS="-O2" LDFLAGS="-s" \
 	 && \
-	 $(MAKE) $(WINPTHREADS_TAG_OPT) \
+	 $(MAKE) V=1 $(JOBS_ARG) $(WINPTHREADS_TAG_OPT) \
 	 && \
-	 $(MAKE) install
+	 $(MAKE) V=1 $(JOBS_ARG) install
 	mv -f $(WINPTHREADS_DEFAULT_STAGE)/lib/libpthread.dll.a $(WINPTHREADS_DEFAULT_STAGE)/lib/libpthread_s.dll.a
 ifeq ($(BIARCH),1)
 	mkdir -p $(SCRATCH)/winpthreads/build-alt
@@ -1182,7 +1205,7 @@ ifeq ($(BIARCH),1)
 	  RC="windres -F pe-i386" CFLAGS="-O2 -m32" \
 	  LDFLAGS="-s -m32" \
 	 && \
-	 $(MAKE) && $(MAKE) install
+	 $(MAKE) V=1 $(JOBS_ARG) && $(MAKE) V=1 $(JOBS_ARG) install
 	mv -f $(SCRATCH)/winpthreads/stage/32/lib/libpthread.dll.a $(SCRATCH)/winpthreads/stage/32/lib/libpthread_s.dll.a
 endif
 endif
@@ -1209,7 +1232,7 @@ binutils-pkg-install: $(STAMP_BINUTILS_PKG_INSTALL)
 binutils-distrib: $(STAMP_BINUTILS_DISTRIB)
 binutils-manifest: $(STAMP_BINUTILS_MANIFEST)
 
-$(STAMP_BINUTILS_BUILD): $(STAMP_HOST_TOOLCHAIN_COPY) $(STAMP_DEFAULT_MANIFEST_HOST_INSTALL)
+$(STAMP_BINUTILS_BUILD): $(STAMP_HOST_TOOLCHAIN_COPY) $(STAMP_DEFAULT_MANIFEST_HOST_INSTALL) $(STAMP_ISL_HOST_INSTALL)
 	@echo "=== gccmaster: Build binutils ==="
 	rm -fR $(SCRATCH)/binutils
 	mkdir -p $(SCRATCH)/binutils
@@ -1223,7 +1246,7 @@ ifeq ($(BUILD_TYPE),cross)
 	  --disable-nls --disable-gdb \
 	  CFLAGS="-O2 -g $(LTO_OPT)" LDFLAGS="$(LTO_OPT)" \
 	 && \
-	 $(MAKE)
+	 $(MAKE) V=1 $(JOBS_ARG)
 endif
 ifeq ($(BUILD_TYPE),native)
 	export PATH="$(BUILDFROM)/bin:$(PATH)" \
@@ -1237,21 +1260,21 @@ ifeq ($(BUILD_TYPE),native)
 	 $(BINUTILS_SRC)/configure --prefix=$(STAGING_PREFIX) \
 	  --build=$(TARGET) $(BINUTILS_TARGETS_OPT) \
 	  --disable-gdb --enable-plugins --disable-shared \
-	  --enable-lto --enable-64-bit-bfd --disable-werror --disable-nls \
+	  --enable-lto --enable-64-bit-bfd --disable-werror --enable-nls \
 	  CFLAGS="-O2 -m32 $(LTO_OPT)" \
 	  LDFLAGS="-s -m32 $(LTO_OPT) -Wl,$(SCRATCH_WIN)/binutils/glob_enable.o -Wl,--large-address-aware" \
 	 && \
-	 $(MAKE)
+	 $(MAKE) V=1 $(JOBS_ARG)
 endif
 	touch $@
 
-$(STAMP_BINUTILS_STAGE_INSTALL): $(STAMP_BINUTILS_BUILD)
+$(STAMP_BINUTILS_STAGE_INSTALL): $(STAMP_BINUTILS_BUILD) $(STAMP_LIBICONV_STAGE_INSTALL)
 	@echo "=== gccmaster: Install binutils in staging prefix ==="
 	export PATH="$(BUILDFROM)/bin:$(PATH)" \
 	 && \
 	 cd $(SCRATCH)/binutils \
 	 && \
-	 $(MAKE) install
+	 $(MAKE) V=1 $(JOBS_ARG) install
 	touch $@
 
 ifeq ($(BUILD_TYPE),native)
@@ -1262,7 +1285,7 @@ $(STAMP_BINUTILS_PKG_INSTALL): $(STAMP_BINUTILS_BUILD)
 	 && \
 	 cd $(SCRATCH)/binutils \
 	 && \
-	 $(MAKE) install prefix=$(PKG_BINUTILS)
+	 $(MAKE) V=1 $(JOBS_ARG) install prefix=$(PKG_BINUTILS)
 	touch $@
 
 $(STAMP_BINUTILS_DISTRIB): $(STAMP_BINUTILS_PKG_INSTALL)
@@ -1270,6 +1293,7 @@ $(STAMP_BINUTILS_DISTRIB): $(STAMP_BINUTILS_PKG_INSTALL)
 	rm -fR -- $(DISTRIB)/binutils
 	mkdir -p -- $(DISTRIB)/binutils
 	cp -Rp -- $(PKG_BINUTILS)/* $(DISTRIB)/binutils/
+	rm -f -- $(DISTRIB)/binutils/lib/bfd-plugins/*.a
 	rm -f -- $(DISTRIB)/binutils/lib/*.la
 	rm -f -- $(DISTRIB)/binutils/share/info/dir
 	rm -f -- $(DISTRIB)/binutils/master-stamp-*
@@ -1357,7 +1381,7 @@ $(STAMP_RUNTIME_HEADERS_BUILD): $(STAMP_BINUTILS_STAGE_INSTALL)
 	 && \
 	 $(RUNTIME_SRC)/mingw-w64-headers/configure --build=$(HOST) \
 	  --host=$(TARGET) --prefix=$(STAGING_PREFIX)/$(TARGET) \
-	  --enable-secure-api
+	  --enable-secure-api --enable-wildcard
 	touch $@
 $(STAMP_RUNTIME_HEADERS_STAGE_INSTALL): $(STAMP_RUNTIME_HEADERS_BUILD)
 	@echo "=== gccmaster: Install mingw-w64 runtime headers in staging prefix ==="
@@ -1365,10 +1389,11 @@ $(STAMP_RUNTIME_HEADERS_STAGE_INSTALL): $(STAMP_RUNTIME_HEADERS_BUILD)
 	 && \
 	 cd $(SCRATCH)/runtime-headers \
 	 && \
-	 $(MAKE) install
+	 $(MAKE) install V=1 $(JOBS_ARG)
 	touch $@
 endif
 
+# Note: as of -v8, encountering jobserver -j32 glitch
 ifeq ($(BUILD_TYPE),cross)
 $(STAMP_RUNTIME_BUILD): $(STAMP_GCC_CORE_STAGE_INSTALL)
 endif
@@ -1383,9 +1408,9 @@ ifeq ($(BUILD_TYPE),cross)
 	 && \
 	 $(RUNTIME_SRC)/configure --build=$(HOST) --host=$(TARGET) \
 	  --prefix=$(STAGING_PREFIX)/$(TARGET) $(ENABLE_LIB32_OPT) \
-	  --enable-secure-api \
+	  --enable-secure-api --enable-wildcard \
 	 && \
-	 $(MAKE)
+	 $(MAKE) V=1
 endif
 ifeq ($(BUILD_TYPE),native)
 	export PATH="$(BUILDFROM)/bin:$(BUILDFROM)/$(TARGET)/bin:$(PATH)" \
@@ -1393,16 +1418,17 @@ ifeq ($(BUILD_TYPE),native)
 	 cd $(SCRATCH)/runtime \
 	 && \
 	 $(RUNTIME_SRC)/configure --build=$(TARGET) $(ENABLE_LIB32_OPT) \
-	  --enable-sdk=all --with-libraries=libmangle --with-tools=all --enable-secure-api \
+	  --enable-sdk=all --with-libraries=libmangle --with-tools=all \
+	  --enable-secure-api --enable-wildcard \
 	  --prefix=$(STAGING_PREFIX)/$(TARGET) \
 	 && \
 	 cd $(SCRATCH)/runtime/mingw-w64-headers \
 	 && \
-	 $(MAKE) install \
+	 $(MAKE) install V=1 \
 	 && \
 	 cd $(SCRATCH)/runtime \
 	 && \
-	 $(MAKE)
+	 $(MAKE) V=1
 endif
 	touch $@
 
@@ -1413,14 +1439,14 @@ ifeq ($(BUILD_TYPE),cross)
 	 && \
 	 cd $(SCRATCH)/runtime \
 	 && \
-	 $(MAKE) install
+	 $(MAKE) install V=1
 endif
 ifeq ($(BUILD_TYPE),native)
 	export PATH="$(BUILDFROM)/bin:$(BUILDFROM)/$(TARGET)/bin:$(PATH)" \
 	 && \
 	 cd $(SCRATCH)/runtime \
 	 && \
-	 $(MAKE) install
+	 $(MAKE) install V=1
 endif
 	touch $@
 
@@ -1432,7 +1458,7 @@ $(STAMP_RUNTIME_PKG_INSTALL): $(STAMP_RUNTIME_BUILD)
 	 && \
 	 cd $(SCRATCH)/runtime \
 	 && \
-	 $(MAKE) install prefix=$(PKG_RUNTIME)/$(TARGET)
+	 $(MAKE)  V=1 install prefix=$(PKG_RUNTIME)/$(TARGET)
 	-rm -f $(PKG_RUNTIME)/$(TARGET)/include/pthread*.h
 	touch $@
 
@@ -1517,55 +1543,34 @@ $(STAMP_DEFAULT_MANIFEST_BUILD): $(STAMP_HOST_TOOLCHAIN_COPY)
 	@echo "=== gccmaster: Build default-manifest ==="
 	rm -fR $(SCRATCH)/default-manifest
 	mkdir -p $(SCRATCH)/default-manifest/build
-ifeq ($(BUILD_TYPE),cross)
-	export PATH="$(BUILDFROM)/bin:$(PATH)" \
-		&& cd $(SCRATCH)/default-manifest/build \
-		&& $(DEFAULT_MANIFEST_SRC)/configure --prefix=$(BUILDFROM)/$(HOST) --build=$(HOST) \
-		&& $(MAKE)
-else
 ifneq ($(BIARCH),1)
 	export PATH=$(HOST_TOOLCHAIN)/bin:$(HOST_TOOLCHAIN)/$(TARGET)/bin:$(PATH) \
 		&& cd $(SCRATCH)/default-manifest/build \
 		&& $(DEFAULT_MANIFEST_SRC)/configure --prefix=$(SCRATCH)/default-manifest/stage --build=$(HOST) \
-		&& $(MAKE) && $(MAKE) install
+		&& $(MAKE) TARGET=default-manifest.o && $(MAKE) install TARGET=default-manifest.o
 else
 	mkdir -p $(SCRATCH)/default-manifest/build32
 	export PATH=$(HOST_TOOLCHAIN)/bin:$(HOST_TOOLCHAIN)/$(TARGET)/bin:$(PATH) \
 		&& cd $(SCRATCH)/default-manifest/build32 \
 		&& $(DEFAULT_MANIFEST_SRC)/configure --prefix=$(SCRATCH)/default-manifest/stage/32 --build=$(HOST) \
-		&& $(MAKE) RC_FLAGS="-F pe-i386" && $(MAKE) install
+		&& $(MAKE) RC_FLAGS="-F pe-i386" TARGET=default-manifest.o && $(MAKE) install TARGET=default-manifest.o
 	export PATH=$(HOST_TOOLCHAIN)/bin:$(HOST_TOOLCHAIN)/$(TARGET)/bin:$(PATH) \
 		&& cd $(SCRATCH)/default-manifest/build \
 		&& $(DEFAULT_MANIFEST_SRC)/configure --prefix=$(SCRATCH)/default-manifest/stage/64 --build=$(HOST) \
-		&& $(MAKE) && $(MAKE) install
-endif
+		&& $(MAKE) TARGET=default-manifest.o && $(MAKE) install TARGET=default-manifest.o
 endif
 	touch $@
 
 $(STAMP_DEFAULT_MANIFEST_HOST_INSTALL): $(STAMP_DEFAULT_MANIFEST_BUILD)
 	@echo "=== gccmaster: Install default-manifest in scratch toolchain ==="
-ifeq ($(BUILD_TYPE),cross)
-	export PATH="$(BUILDFROM)/bin:$(PATH)" \
-	 && cd $(SCRATCH)/default-manifest/build \
-	 && $(MAKE) install
-endif
-ifeq ($(BUILD_TYPE),native)
 	$(MAKE) -f $(THIS_MAKEFILE_DIR)/install_from_stage.makefile \
 	 SRC=$(SCRATCH)/default-manifest/stage DEST=$(BUILDFROM)/$(HOST) BIARCH=$(BIARCH)
-endif
 	touch $@
 
 $(STAMP_DEFAULT_MANIFEST_STAGE_INSTALL): $(STAMP_DEFAULT_MANIFEST_BUILD)
 	@echo "=== gccmaster: Install default-manifest in staging prefix ==="
-ifeq ($(BUILD_TYPE),cross)
-	export PATH="$(BUILDFROM)/bin:$(PATH)" \
-	 && $(SCRATCH)/default-manifest/build \
-	 && $(MAKE) install prefix=$(STAGING_PREFIX)
-endif
-ifeq ($(BUILD_TYPE),native)
 	$(MAKE) -f $(THIS_MAKEFILE_DIR)/install_from_stage.makefile \
 	 SRC=$(SCRATCH)/default-manifest/stage DEST=$(STAGING_PREFIX)/$(HOST) BIARCH=$(BIARCH)
-endif
 	touch $@
 
 
@@ -1682,7 +1687,7 @@ endif
 ifeq ($(BUILD_TYPE),native)
 $(STAMP_STAGE_COPY32): $(STAMP_GMP_STAGE_INSTALL) $(STAMP_MPFR_STAGE_INSTALL)
 $(STAMP_STAGE_COPY32): $(STAMP_MPC_STAGE_INSTALL) $(STAMP_ISL_STAGE_INSTALL)
-#$(STAMP_STAGE_COPY32): $(STAMP_CLOOG_STAGE_INSTALL)
+$(STAMP_STAGE_COPY32): $(STAMP_ZSTD_STAGE_INSTALL)
 $(STAMP_STAGE_COPY32): $(STAMP_LIBICONV_STAGE_INSTALL)
 $(STAMP_STAGE_COPY32): $(STAMP_WINPTHREADS_STAGE_INSTALL)
 $(STAMP_STAGE_COPY32): $(STAMP_DEFAULT_MANIFEST_STAGE_INSTALL)
@@ -1736,7 +1741,7 @@ $(STAMP_GCC_CORE_BUILD):
 	  $(EXCEPTIONS_OPT) --enable-threads=$(THREAD_TYPE) \
 	 && \
 	 $(MAKE) all-gcc ADA_CFLAGS=-fpermissive CFLAGS="-O0 -g $(LTO_OPT)" \
-	  LDFLAGS="$(LTO_OPT)"
+	  LDFLAGS="$(LTO_OPT) -Wl,--disable-dynamicbase"
 	touch $@
 $(STAMP_GCC_CORE_STAGE_INSTALL): $(STAMP_GCC_CORE_BUILD)
 	@echo "=== gccmaster: Install gcc core in staging prefix ==="
@@ -1752,11 +1757,14 @@ $(STAMP_GCC_BUILD): $(STAMP_STAGE_COPY32)
 ifeq ($(BUILD_TYPE),native)
 $(STAMP_GCC_BUILD): $(STAMP_GMP_HOST_INSTALL) $(STAMP_MPFR_HOST_INSTALL)
 $(STAMP_GCC_BUILD): $(STAMP_MPC_HOST_INSTALL) $(STAMP_ISL_HOST_INSTALL)
-#$(STAMP_GCC_BUILD): $(STAMP_CLOOG_HOST_INSTALL)
+$(STAMP_GCC_BUILD): $(STAMP_ZSTD_HOST_INSTALL)
 $(STAMP_GCC_BUILD): $(STAMP_LIBICONV_HOST_INSTALL) $(STAMP_WINPTHREADS_STAGE_INSTALL)
 $(STAMP_GCC_BUILD): $(STAMP_DEFAULT_MANIFEST_HOST_INSTALL)
 endif
 
+#	 export CPATH="$(SCRATCH)/gcc-$(EXCEPTIONS)/gcc/include;$(SCRATCH)/gcc-$(EXCEPTIONS)/gcc/include-fixed;$(STAGING_PREFIX)/include;$(STAGING_PREFIX)/$(TARGET)/include;$(BUILDFROM)/include;$(BUILDFROM)/$(TARGET)/include"
+# --with-sysroot=$(STAGING_PREFIX)/../
+# --with-native-system-header-dir=/include 
 $(STAMP_GCC_BUILD):
 	@echo "=== gccmaster: Build gcc ==="
 ifeq ($(BUILD_TYPE),cross)
@@ -1764,22 +1772,24 @@ ifeq ($(findstring w64,$(TARGET)),)
 	rm -fR $(SCRATCH)/gcc-$(EXCEPTIONS)
 	mkdir -p $(SCRATCH)/gcc-$(EXCEPTIONS)
 	export PATH="$(BUILDFROM)/bin:$(BUILD_TOOLCHAIN)/bin:$(PATH)" && \
-	 export LPATH="$(STAGING_PREFIX)/lib;$(STAGING_PREFIX)/$(TARGET)/lib;$(BUILDFROM)/lib" && \
-	 export CPATH="$(STAGING_PREFIX)/include;$(STAGING_PREFIX)/$(TARGET)/include;$(BUILDFROM)/include;$(BUILDFROM)/$(TARGET)/include" \
+	 export LPATH="$(BUILDFROM)/lib;$(STAGING_PREFIX)/lib;$(STAGING_PREFIX)/$(TARGET)/lib" && \
+	 export CPATH="$(BUILDFROM)/include;$(BUILDFROM)/$(TARGET)/include;$(STAGING_PREFIX)/include;$(STAGING_PREFIX)/$(TARGET)/include" \
 	 && \
 	 cd $(SCRATCH)/gcc-$(EXCEPTIONS) \
 	 && \
 	 $(GCC_SRC)/configure --build=$(BUILD) --host=$(HOST) $(GCC_TARGETS_OPT) \
 	  --target=$(TARGET) --prefix=$(STAGING_PREFIX) $(RUNTIME_SHARED_OPT) \
 	  --enable-languages=$(LANGS) --disable-werror --with-gnu-ld \
-	  --enable-nls --disable-win32-registry --disable-bootstrap \
+	  --disable-nls --disable-win32-registry --disable-bootstrap \
 	  --enable-graphite --enable-libstdcxx-filesystem-ts=yes \
 	  --enable-libstdcxx-time=yes --enable-checking=release \
 	  $(EXCEPTIONS_OPT) --enable-threads=$(THREAD_TYPE) \
+	  --enable-mingw-wildcard \
 	 && \
-	 $(MAKE) ADA_CFLAGS=-fpermissive CFLAGS="-O0 -g $(LTO_OPT)" \
-	  LDFLAGS="$(LTO_OPT)"
+	 $(MAKE) ADA_CFLAGS=-fpermissive CFLAGS="-O0 -g $(LTO_OPT) -DMINGW_DOWILDCARD=1" \
+	  CFLAGS_FOR_TARGET="-O0 -g $(LTO_OPT) -DMINGW_DOWILDCARD=1" LDFLAGS="$(LTO_OPT)"
 else
+	# Don't delete the build directory as we are doing the second stage of a 2-stage build; first core compiler (then runtime), then the full GCC build
 	export PATH="$(BUILDFROM)/bin:$(BUILD_TOOLCHAIN)/bin:$(PATH)" && \
 	 export LPATH="$(STAGING_PREFIX)/lib;$(STAGING_PREFIX)/$(TARGET)/lib;$(BUILDFROM)/lib" && \
 	 export CPATH="$(STAGING_PREFIX)/include;$(STAGING_PREFIX)/$(TARGET)/include;$(BUILDFROM)/include;$(BUILDFROM)/$(TARGET)/include" \
@@ -1787,7 +1797,7 @@ else
 	 cd $(SCRATCH)/gcc-$(EXCEPTIONS) \
 	 && \
 	 $(MAKE) ADA_CFLAGS=-fpermissive CFLAGS="-O0 -g $(LTO_OPT)" \
-	  LDFLAGS="$(LTO_OPT)"
+	  CFLAGS_FOR_TARGET="-O0 -g $(LTO_OPT)" LDFLAGS="$(LTO_OPT) -Wl,--disable-dynamicbase"
 endif
 endif
 ifeq ($(BUILD_TYPE),native)
@@ -1804,22 +1814,24 @@ ifeq ($(findstring w64,$(TARGET)),)
 	  --enable-libgomp --enable-lto --enable-graphite --enable-libstdcxx-debug \
 	  --enable-threads=$(THREAD_TYPE) --enable-version-specific-runtime-libs \
 	  --enable-fully-dynamic-string --enable-libstdcxx-threads --disable-build-format-warnings \
-	  --enable-libstdcxx-time --with-gnu-ld --disable-werror --enable-nls \
+	  --with-gnu-ld --disable-werror --enable-nls --enable-mingw-wildcard \
 	  --disable-win32-registry --disable-symvers --enable-large-address-aware \
 	  --enable-cxx-flags='-fno-function-sections -fno-data-sections -DWINPTHREAD_STATIC' \
 	  --enable-libstdcxx-filesystem-ts=yes --enable-libstdcxx-time=yes \
 	  --enable-checking=release \
 	  --prefix=$(STAGING_PREFIX) --with-local-prefix=$(STAGING_PREFIX) \
 	  $(PKGVERSION_OPT) $(EXCEPTIONS_OPT) \
-	  --with-bugurl="http://tdm-gcc.tdragon.net/bugs" \
+	  --with-bugurl="https://github.com/jmeubank/tdm-gcc/issues" \
 	 && \
 	 $(MAKE) bootstrap \
-	  CFLAGS="-O2 $(LTO_OPT) -D__USE_MINGW_ACCESS -DWINPTHREAD_STATIC" \
-	  BOOT_CFLAGS="-O2 $(LTO_OPT) -D__USE_MINGW_ACCESS -DWINPTHREAD_STATIC" \
-	  CFLAGS_FOR_TARGET="-O2 $(LTO_OPT) -D__USE_MINGW_ACCESS -DWINPTHREAD_STATIC" \
-	  CXXFLAGS="-mthreads -O2 $(LTO_OPT) -D__USE_MINGW_ACCESS -DWINPTHREAD_STATIC" \
-	  BOOT_CXXFLAGS="-mthreads -O2 $(LTO_OPT) -D__USE_MINGW_ACCESS -DWINPTHREAD_STATIC" \
-	  CXXFLAGS_FOR_TARGET="-mthreads -O2 $(LTO_OPT) -D__USE_MINGW_ACCESS -DWINPTHREAD_STATIC" \
+	  STAGE1_CFLAGS="-D__USE_MINGW_ACCESS -DWINPTHREAD_STATIC -U__STRICT_ANSI__" \
+	  CFLAGS="-O2 $(LTO_OPT) -D__USE_MINGW_ACCESS -DWINPTHREAD_STATIC -DMINGW_DOWILDCARD=1 -U__STRICT_ANSI__" \
+	  BOOT_CFLAGS="-O2 $(LTO_OPT) -D__USE_MINGW_ACCESS -DWINPTHREAD_STATIC -DMINGW_DOWILDCARD=1 -U__STRICT_ANSI__" \
+	  CFLAGS_FOR_TARGET="-O2 $(LTO_OPT) -D__USE_MINGW_ACCESS -DWINPTHREAD_STATIC -DMINGW_DOWILDCARD=1" \
+	  CXXFLAGS="-mthreads -O2 $(LTO_OPT) -D__USE_MINGW_ACCESS -DWINPTHREAD_STATIC -DMINGW_DOWILDCARD=1 -U__STRICT_ANSI__" \
+	  BOOT_CXXFLAGS="-mthreads -O2 $(LTO_OPT) -D__USE_MINGW_ACCESS -DWINPTHREAD_STATIC -DMINGW_DOWILDCARD=1 -U__STRICT_ANSI__" \
+	  CXXFLAGS_FOR_TARGET="-mthreads -O2 $(LTO_OPT) -D__USE_MINGW_ACCESS -DWINPTHREAD_STATIC -DMINGW_DOWILDCARD=1" \
+	  LDFLAGS="-s $(LTO_OPT) -Wl,--large-address-aware -Wl,--exclude-libs,libpthread.a" \
 	  BOOT_LDFLAGS="-s $(LTO_OPT) -Wl,--large-address-aware -Wl,--exclude-libs,libpthread.a" \
 	  LDFLAGS_FOR_TARGET="-s $(LTO_OPT) -Wl,--large-address-aware -Wl,--exclude-libs,libpthread.a" \
 	  ADA_CFLAGS="-fpermissive"
@@ -1838,21 +1850,23 @@ ifeq ($(BIARCH),1)
 	  --disable-build-with-cxx --disable-build-poststage1-with-cxx \
 	  --enable-libstdcxx-debug --enable-threads=$(THREAD_TYPE) \
 	  --enable-version-specific-runtime-libs --enable-fully-dynamic-string \
-	  --enable-libstdcxx-threads --enable-libstdcxx-time --with-gnu-ld \
-	  --disable-werror --disable-nls --disable-win32-registry \
+	  --enable-libstdcxx-filesystem-ts=yes --disable-libstdcxx-pch \
+	  --enable-libstdcxx-threads --enable-libstdcxx-time=yes \
+	  --enable-mingw-wildcard --with-gnu-ld \
+	  --disable-werror --enable-nls --disable-win32-registry \
 	  --enable-large-address-aware --disable-rpath --disable-symvers \
 	  --prefix=$(STAGING_PREFIX) --with-local-prefix=$(STAGING_PREFIX) \
 	  $(PKGVERSION_OPT) $(EXCEPTIONS_OPT) \
-	  --with-bugurl="http://tdm-gcc.tdragon.net/bugs" \
+	  --with-bugurl="https://github.com/jmeubank/tdm-gcc/issues" \
 	 && \
 	 $(MAKE) bootstrap \
-	  STAGE1_CFLAGS=-m32 STAGE1_CXXFLAGS=-m32 STAGE1_LDFLAGS=-m32 \
-	  CFLAGS_FOR_BUILD=-m32 CXXFLAGS_FOR_BUILD=-m32 LDFLAGS_FOR_BUILD=-m32 \
-	  CFLAGS_FOR_TARGET="-O2 -DWINPTHREAD_STATIC" \
-	  CXXFLAGS_FOR_TARGET="-O2 -DWINPTHREAD_STATIC" \
-	  LDFLAGS_FOR_TARGET=-Wl,--exclude-libs,libpthread.a
+	  STAGE1_CFLAGS=-m32 STAGE1_CXXFLAGS=-m32 STAGE1_LDFLAGS="-m32 -Wl,--disable-dynamicbase" \
+	  CFLAGS_FOR_BUILD=-m32 CXXFLAGS_FOR_BUILD=-m32 "LDFLAGS_FOR_BUILD=-m32 -Wl,--disable-dynamicbase" \
+	  CFLAGS_FOR_TARGET="-O2 -DWINPTHREAD_STATIC -DMINGW_DOWILDCARD=1" \
+	  CXXFLAGS_FOR_TARGET="-O2 -DWINPTHREAD_STATIC -DMINGW_DOWILDCARD=1" \
+	  LDFLAGS_FOR_TARGET="-Wl,--exclude-libs,libpthread.a"
 	test -f $(SCRATCH)/gcc-$(EXCEPTIONS)/gcc/build/genmatch.o
-	test -n $(SCRATCH)/gcc-$(EXCEPTIONS)/gcc/build/genmatch.exe
+	test ! -f $(SCRATCH)/gcc-$(EXCEPTIONS)/gcc/build/genmatch.exe
 	rm -f $(SCRATCH)/gcc-$(EXCEPTIONS)/build-$(TARGET)/libcpp/*.o
 # Second expected fail - stage 3 fixincludes exe non-32-bit link fail
 	-export PATH="$(BUILDFROM)/bin:$(BUILDFROM)/$(TARGET)/bin32:$(BUILDFROM)/$(TARGET)/bin:$(PATH)" && \
@@ -1865,22 +1879,22 @@ ifeq ($(BIARCH),1)
 	 cd $(SCRATCH)/gcc-$(EXCEPTIONS) \
 	 && \
 	 $(MAKE) bootstrap \
-	  STAGE1_CFLAGS=-m32 STAGE1_CXXFLAGS=-m32 STAGE1_LDFLAGS=-m32 \
-	  CFLAGS_FOR_BUILD=-m32 CXXFLAGS_FOR_BUILD=-m32 LDFLAGS_FOR_BUILD=-m32 \
+	  STAGE1_CFLAGS=-m32 STAGE1_CXXFLAGS=-m32 STAGE1_LDFLAGS="-m32 -Wl,--disable-dynamicbase" \
+	  CFLAGS_FOR_BUILD=-m32 CXXFLAGS_FOR_BUILD=-m32 "LDFLAGS_FOR_BUILD=-m32 -Wl,--disable-dynamicbase" \
 	  BOOT_CFLAGS="-O2 -m32 -DWINPTHREAD_STATIC \
 	   -isystem ../prev-$(TARGET)/32/libstdc++-v3/include/$(TARGET) \
 	   -isystem ../prev-$(TARGET)/32/libstdc++-v3/include \
 	   -isystem ../prev-$(TARGET)/libstdc++-v3/include/$(TARGET) \
 	   -isystem ../prev-$(TARGET)/libstdc++-v3/include \
 	   -isystem $(STAGING_PREFIX)/$(TARGET)/include" \
-	  BOOT_CXXFLAGS="-O2 -m32 -DWINPTHREAD_STATIC" \
-	  BOOT_LDFLAGS="-s -m32 $(LTO_OPT) -Wl,--exclude-libs,libpthread.a" \
-	  CFLAGS_FOR_TARGET="-O2 -DWINPTHREAD_STATIC" \
-	  CXXFLAGS_FOR_TARGET="-O2 -DWINPTHREAD_STATIC" \
+	  BOOT_CXXFLAGS="-O2 -m32 -DWINPTHREAD_STATIC -DMINGW_DOWILDCARD=1" \
+	  BOOT_LDFLAGS="-s -m32 $(LTO_OPT) -Wl,--exclude-libs,libpthread.a -Wl,--disable-dynamicbase -Wl,--large-address-aware" \
+	  CFLAGS_FOR_TARGET="-O2 -DWINPTHREAD_STATIC -DMINGW_DOWILDCARD=1" \
+	  CXXFLAGS_FOR_TARGET="-O2 -DWINPTHREAD_STATIC -DMINGW_DOWILDCARD=1" \
 	  LDFLAGS_FOR_TARGET="$(LTO_OPT) -Wl,--exclude-libs,libpthread.a" \
 	  ADA_CFLAGS=-fpermissive
 	test -f $(SCRATCH)/gcc-$(EXCEPTIONS)/fixincludes/fixincl.o
-	test -n $(SCRATCH)/gcc-$(EXCEPTIONS)/fixincludes/fixincl.exe
+	test ! -f $(SCRATCH)/gcc-$(EXCEPTIONS)/fixincludes/fixincl.exe
 	rm -f $(SCRATCH)/gcc-$(EXCEPTIONS)/fixincludes/*.o
 # Final attempt - should succeed
 	export PATH="$(BUILDFROM)/bin:$(BUILDFROM)/$(TARGET)/bin32:$(BUILDFROM)/$(TARGET)/bin:$(PATH)" && \
@@ -1893,15 +1907,15 @@ ifeq ($(BIARCH),1)
 	 cd $(SCRATCH)/gcc-$(EXCEPTIONS) \
 	 && \
 	 $(MAKE) bootstrap \
-	  STAGE1_CFLAGS=-m32 STAGE1_CXXFLAGS=-m32 STAGE1_LDFLAGS=-m32 \
+	  STAGE1_CFLAGS=-m32 STAGE1_CXXFLAGS=-m32 STAGE1_LDFLAGS="-m32 -Wl,--disable-dynamicbase" \
 	  CFLAGS_FOR_BUILD=-m32 CXXFLAGS_FOR_BUILD=-m32 LDFLAGS_FOR_BUILD=-m32 \
-	  BOOT_CFLAGS="-O2 -m32 -DWINPTHREAD_STATIC" \
-	  BOOT_CXXFLAGS="-O2 -m32 -DWINPTHREAD_STATIC" \
-	  BOOT_LDFLAGS="-s -m32 $(LTO_OPT) -Wl,--exclude-libs,libpthread.a" \
-	  CFLAGS_FOR_TARGET="-O2 -DWINPTHREAD_STATIC" \
-	  CXXFLAGS_FOR_TARGET="-O2 -DWINPTHREAD_STATIC" \
+	  BOOT_CFLAGS="-O2 -m32 -DWINPTHREAD_STATIC -DMINGW_DOWILDCARD=1" \
+	  BOOT_CXXFLAGS="-O2 -m32 -DWINPTHREAD_STATIC -DMINGW_DOWILDCARD=1" \
+	  BOOT_LDFLAGS="-s -m32 $(LTO_OPT) -Wl,--exclude-libs,libpthread.a -Wl,--disable-dynamicbase -Wl,--large-address-aware" \
+	  CFLAGS_FOR_TARGET="-O2 -DWINPTHREAD_STATIC -DMINGW_DOWILDCARD=1" \
+	  CXXFLAGS_FOR_TARGET="-O2 -DWINPTHREAD_STATIC -DMINGW_DOWILDCARD=1" \
 	  LDFLAGS_FOR_TARGET="$(LTO_OPT) -Wl,--exclude-libs,libpthread.a" \
-	  ADA_CFLAGS=-fpermissive GNATTOOLS_NATIVE_CFLAGS="-O2 -m32" \
+	  ADA_CFLAGS=-fpermissive GNATTOOLS_NATIVE_CFLAGS="-O2 -m32 -DMINGW_DOWILDCARD=1" \
 	  GNATTOOLS_NATIVE_LDFLAGS="-s -m32" GNATTOOLS_NATIVE_MULTISUBDIR=/32 \
 	  GNATTOOLS_NATIVE_GCC_LINK_FLAGS="-s -m32" \
 	  GNATTOOLS_NATIVE_RTS_SUFFIX=_32
@@ -1976,12 +1990,13 @@ $(STAMP_GCC_DISTRIB): $(STAMP_GCC_PKG_INSTALL)
 	rm -fR -- $(DISTRIB)/fortran
 	rm -fR -- $(DISTRIB)/objc
 	rm -fR -- $(DISTRIB)/openmp
+	rm -fR -- $(DISTRIB)/jit
 	rm -fR -- $(DISTRIB)/default-manifest
 	mkdir -p -- $(DISTRIB)/core
 	cp -Rp -- $(PKG_GCC)/* $(DISTRIB)/core/
-	rmdir -- $(DISTRIB)/core/include
 	rm -fR -- $(DISTRIB)/core/lib/gcc/$(TARGET)/$(GCC_VER)$(MAYBEGCCVERSUFFIX)/debug
 	rm -fR -- $(DISTRIB)/core/lib/gcc/$(TARGET)/$(GCC_VER)$(MAYBEGCCVERSUFFIX)/32/debug
+	mv -f -- $(DISTRIB)/core/lib/gcc/$(TARGET)/$(GCC_VER)$(MAYBEGCCVERSUFFIX)/adalib/*.dll $(DISTRIB)/core/bin/
 ifneq ($(findstring w64,$(TARGET)),)
 	mv -f -- $(DISTRIB)/core/lib/gcc/$(TARGET)/lib/libgcc_s.a $(DISTRIB)/core/lib/gcc/$(TARGET)/$(GCC_VER)$(MAYBEGCCVERSUFFIX)/
 	rmdir -- $(DISTRIB)/core/lib/gcc/$(TARGET)/lib
@@ -1994,7 +2009,6 @@ ifneq ($(findstring w64,$(TARGET)),)
 	mv -f -- $(DISTRIB)/core/lib/gcc/$(TARGET)/$(GCC_VER)$(MAYBEGCCVERSUFFIX)/32/adalib/*.dll $(DISTRIB)/core/bin/
 endif
 	rm -f -- $(DISTRIB)/core/lib/gcc/$(TARGET)/$(GCC_VER)$(MAYBEGCCVERSUFFIX)/*.la
-	mv -f -- $(DISTRIB)/core/lib/gcc/$(TARGET)/$(GCC_VER)$(MAYBEGCCVERSUFFIX)/adalib/*.dll $(DISTRIB)/core/bin/
 	rm -f -- $(DISTRIB)/core/libexec/gcc/$(TARGET)/$(GCC_VER)$(MAYBEGCCVERSUFFIX)/*.la
 	rm -f -- $(DISTRIB)/core/share/info/dir
 ifeq ($(findstring w64,$(TARGET)),)
@@ -2004,6 +2018,7 @@ ifeq ($(findstring w64,$(TARGET)),)
 	cp -p -- $(SCRATCH)/libiconv/stage/bin/libiconv-*.dll $(DISTRIB)/core/bin/
 	cp -p -- $(SCRATCH)/mpc/stage/bin/libmpc-*.dll $(DISTRIB)/core/libexec/gcc/$(TARGET)/$(GCC_VER)$(MAYBEGCCVERSUFFIX)/
 	cp -p -- $(SCRATCH)/mpfr/stage/bin/libmpfr-*.dll $(DISTRIB)/core/libexec/gcc/$(TARGET)/$(GCC_VER)$(MAYBEGCCVERSUFFIX)/
+	cp -p -- $(SCRATCH)/zstd/build/lib/dll/libzstd*.dll $(DISTRIB)/core/libexec/gcc/$(TARGET)/$(GCC_VER)$(MAYBEGCCVERSUFFIX)/
 	mkdir -p -- $(DISTRIB)/core/lib
 	cp -p -- $(SCRATCH)/winpthreads/stage/bin/*.dll $(DISTRIB)/core/bin/
 	cp -p -- $(SCRATCH)/winpthreads/stage/lib/*.a $(DISTRIB)/core/lib/
@@ -2017,6 +2032,7 @@ else
 	cp -p -- $(SCRATCH)/libiconv/stage/32/bin/libiconv-*.dll $(DISTRIB)/core/bin/
 	cp -p -- $(SCRATCH)/mpc/stage/32/bin/libmpc-*.dll $(DISTRIB)/core/libexec/gcc/$(TARGET)/$(GCC_VER)$(MAYBEGCCVERSUFFIX)/
 	cp -p -- $(SCRATCH)/mpfr/stage/32/bin/libmpfr-*.dll $(DISTRIB)/core/libexec/gcc/$(TARGET)/$(GCC_VER)$(MAYBEGCCVERSUFFIX)/
+	cp -p -- $(SCRATCH)/zstd/build32/lib/dll/libzstd*.dll $(DISTRIB)/core/libexec/gcc/$(TARGET)/$(GCC_VER)$(MAYBEGCCVERSUFFIX)/
 	mkdir -p -- $(DISTRIB)/core/$(TARGET)/lib32
 	cp -p -- $(SCRATCH)/winpthreads/stage/32/lib/*.a $(DISTRIB)/core/$(TARGET)/lib32/
 	cp -p -- $(SCRATCH)/winpthreads/stage/32/lib/*.dll $(DISTRIB)/core/bin/
@@ -2030,8 +2046,10 @@ endif
 	$(BUILDFROM)/bin/strip.exe $(DISTRIB)/core/bin/*.dll
 	$(BUILDFROM)/bin/strip.exe $(DISTRIB)/core/libexec/gcc/$(TARGET)/$(GCC_VER)$(MAYBEGCCVERSUFFIX)/*.exe
 	$(BUILDFROM)/bin/strip.exe $(DISTRIB)/core/libexec/gcc/$(TARGET)/$(GCC_VER)$(MAYBEGCCVERSUFFIX)/*.dll
+ifneq ($(findstring ada,$(LANGS)),)
 	mkdir -p -- $(DISTRIB)/ada
 	cp -Rp -- $(DISTRIB_BASE)/$(EDITION)/ada/* $(DISTRIB)/ada/
+endif
 	mkdir -p -- $(DISTRIB)/c++
 	cp -Rp -- $(DISTRIB_BASE)/$(EDITION)/c++/* $(DISTRIB)/c++/
 	mkdir -p -- $(DISTRIB)/core
@@ -2042,9 +2060,14 @@ endif
 	cp -Rp -- $(DISTRIB_BASE)/$(EDITION)/objc/* $(DISTRIB)/objc/
 	mkdir -p -- $(DISTRIB)/openmp
 	cp -Rp -- $(DISTRIB_BASE)/$(EDITION)/openmp/* $(DISTRIB)/openmp/
+ifneq ($(findstring jit,$(LANGS)),)
+	mkdir -p -- $(DISTRIB)/jit
+endif
+ifneq ($(findstring ada,$(LANGS)),)
 	mkdir -p -- $(DISTRIB)/ada/bin
 	mv -f -- $(DISTRIB)/core/bin/*gnat* $(DISTRIB)/ada/bin/
 	mv -f -- $(DISTRIB)/core/bin/*gnarl* $(DISTRIB)/ada/bin/
+endif
 	mkdir -p -- $(DISTRIB)/c++/bin
 	mv -f -- $(DISTRIB)/core/bin/*++* $(DISTRIB)/c++/bin/
 	mkdir -p -- $(DISTRIB)/fortran/bin
@@ -2053,8 +2076,19 @@ endif
 	mv -f -- $(DISTRIB)/core/bin/*objc* $(DISTRIB)/objc/bin/
 	mkdir -p -- $(DISTRIB)/openmp/bin
 	mv -f -- $(DISTRIB)/core/bin/*gomp* $(DISTRIB)/openmp/bin/
+ifneq ($(findstring jit,$(LANGS)),)
+	mkdir -p -- $(DISTRIB)/jit/bin
+	mv -f -- $(DISTRIB)/core/bin/*jit* $(DISTRIB)/jit/bin/
+	mkdir -p -- $(DISTRIB)/jit/lib/gcc/$(TARGET)/$(GCC_VER)$(MAYBEGCCVERSUFFIX)/include
+	mv -f -- $(DISTRIB)/core/include/*jit* $(DISTRIB)/jit/lib/gcc/$(TARGET)/$(GCC_VER)$(MAYBEGCCVERSUFFIX)/include/
+endif
+ifneq ($(findstring w64,$(TARGET)),)
+	rmdir -- $(DISTRIB)/core/include
+endif
+ifneq ($(findstring ada,$(LANGS)),)
 	mkdir -p -- $(DISTRIB)/ada/lib/gcc/$(TARGET)/$(GCC_VER)$(MAYBEGCCVERSUFFIX)
 	mv -f -- $(DISTRIB)/core/lib/gcc/$(TARGET)/$(GCC_VER)$(MAYBEGCCVERSUFFIX)/*ada* $(DISTRIB)/ada/lib/gcc/$(TARGET)/$(GCC_VER)$(MAYBEGCCVERSUFFIX)/
+endif
 	mkdir -p -- $(DISTRIB)/fortran/lib/gcc/$(TARGET)/$(GCC_VER)$(MAYBEGCCVERSUFFIX)
 	mv -f -- $(DISTRIB)/core/lib/gcc/$(TARGET)/$(GCC_VER)$(MAYBEGCCVERSUFFIX)/*fortran* $(DISTRIB)/fortran/lib/gcc/$(TARGET)/$(GCC_VER)$(MAYBEGCCVERSUFFIX)/
 	mkdir -p -- $(DISTRIB)/openmp/lib/gcc/$(TARGET)/$(GCC_VER)$(MAYBEGCCVERSUFFIX)
@@ -2080,27 +2114,40 @@ endif
 	mv -f -- $(DISTRIB)/core/lib/gcc/$(TARGET)/$(GCC_VER)$(MAYBEGCCVERSUFFIX)/include/c++ $(DISTRIB)/c++/lib/gcc/$(TARGET)/$(GCC_VER)$(MAYBEGCCVERSUFFIX)/include/
 	mkdir -p -- $(DISTRIB)/objc/lib/gcc/$(TARGET)/$(GCC_VER)$(MAYBEGCCVERSUFFIX)/include
 	mv -f -- $(DISTRIB)/core/lib/gcc/$(TARGET)/$(GCC_VER)$(MAYBEGCCVERSUFFIX)/include/objc $(DISTRIB)/objc/lib/gcc/$(TARGET)/$(GCC_VER)$(MAYBEGCCVERSUFFIX)/include/
+ifneq ($(findstring jit,$(LANGS)),)
+	mkdir -p -- $(DISTRIB)/jit/lib/gcc/$(TARGET)/$(GCC_VER)$(MAYBEGCCVERSUFFIX)/32/
+	mv -f -- $(DISTRIB)/core/lib/*jit*.a $(DISTRIB)/jit/lib/gcc/$(TARGET)/$(GCC_VER)$(MAYBEGCCVERSUFFIX)/32/
+endif
 	mkdir -p -- $(DISTRIB)/objc/libexec/gcc/$(TARGET)/$(GCC_VER)$(MAYBEGCCVERSUFFIX)
 	mv -f -- $(DISTRIB)/core/libexec/gcc/$(TARGET)/$(GCC_VER)$(MAYBEGCCVERSUFFIX)/*obj* $(DISTRIB)/objc/libexec/gcc/$(TARGET)/$(GCC_VER)$(MAYBEGCCVERSUFFIX)/
 	mkdir -p -- $(DISTRIB)/c++/libexec/gcc/$(TARGET)/$(GCC_VER)$(MAYBEGCCVERSUFFIX)
 	mv -f -- $(DISTRIB)/core/libexec/gcc/$(TARGET)/$(GCC_VER)$(MAYBEGCCVERSUFFIX)/cc1plus.exe $(DISTRIB)/c++/libexec/gcc/$(TARGET)/$(GCC_VER)$(MAYBEGCCVERSUFFIX)/
 	mkdir -p -- $(DISTRIB)/fortran/libexec/gcc/$(TARGET)/$(GCC_VER)$(MAYBEGCCVERSUFFIX)
 	mv -f -- $(DISTRIB)/core/libexec/gcc/$(TARGET)/$(GCC_VER)$(MAYBEGCCVERSUFFIX)/f951.exe $(DISTRIB)/fortran/libexec/gcc/$(TARGET)/$(GCC_VER)$(MAYBEGCCVERSUFFIX)/
+ifneq ($(findstring ada,$(LANGS)),)
 	mkdir -p -- $(DISTRIB)/ada/libexec/gcc/$(TARGET)/$(GCC_VER)$(MAYBEGCCVERSUFFIX)
 	mv -f -- $(DISTRIB)/core/libexec/gcc/$(TARGET)/$(GCC_VER)$(MAYBEGCCVERSUFFIX)/gnat1.exe $(DISTRIB)/ada/libexec/gcc/$(TARGET)/$(GCC_VER)$(MAYBEGCCVERSUFFIX)/
+endif
 	mkdir -p -- $(DISTRIB)/c++/share
 	mv -f -- $(DISTRIB)/core/share/gcc-$(GCC_VER)$(MAYBEGCCVERSUFFIX) $(DISTRIB)/c++/share/
 	mkdir -p -- $(DISTRIB)/fortran/share/info
 	mv -f -- $(DISTRIB)/core/share/info/*fortran* $(DISTRIB)/fortran/share/info/
+ifneq ($(findstring ada,$(LANGS)),)
 	mkdir -p -- $(DISTRIB)/ada/share/info
 	mv -f -- $(DISTRIB)/core/share/info/*gnat* $(DISTRIB)/ada/share/info/
+endif
 	mkdir -p -- $(DISTRIB)/openmp/share/info
 	mv -f -- $(DISTRIB)/core/share/info/*gomp* $(DISTRIB)/openmp/share/info/
 	mkdir -p -- $(DISTRIB)/c++/share/man/man1
 	mv -f -- $(DISTRIB)/core/share/man/man1/*++* $(DISTRIB)/c++/share/man/man1/
 	mkdir -p -- $(DISTRIB)/fortran/share/man/man1
 	mv -f -- $(DISTRIB)/core/share/man/man1/*fortran* $(DISTRIB)/fortran/share/man/man1/
+ifneq ($(findstring jit,$(LANGS)),)
+	mkdir -p -- $(DISTRIB)/jit/share/info
+	mv -f -- $(DISTRIB)/core/share/info/*jit* $(DISTRIB)/jit/share/info/
+endif
 	rm -f $(DISTRIB)/core/master-stamp-*
+ifneq ($(findstring ada,$(LANGS)),)
 	cd $(DISTRIB)/ada \
 	 && \
 	 rm -f ../gcc-$(GCC_VER)-$(PKGVERSION)$(MAYBEGCCVERSUFFIX)-ada.zip && \
@@ -2108,6 +2155,16 @@ endif
 	 && \
 	 rm -f ../gcc-$(GCC_VER)-$(PKGVERSION)$(MAYBEGCCVERSUFFIX)-ada.tar.xz && \
 	 tar -ahcf ../gcc-$(GCC_VER)-$(PKGVERSION)$(MAYBEGCCVERSUFFIX)-ada.tar.xz *
+endif
+ifneq ($(findstring jit,$(LANGS)),)
+	cd $(DISTRIB)/jit \
+	 && \
+	 rm -f ../gcc-$(GCC_VER)-$(PKGVERSION)$(MAYBEGCCVERSUFFIX)-jit.zip && \
+	 $(SZA) a -tzip -mx9 ../gcc-$(GCC_VER)-$(PKGVERSION)$(MAYBEGCCVERSUFFIX)-jit.zip * \
+	 && \
+	 rm -f ../gcc-$(GCC_VER)-$(PKGVERSION)$(MAYBEGCCVERSUFFIX)-jit.tar.xz && \
+	 tar -ahcf ../gcc-$(GCC_VER)-$(PKGVERSION)$(MAYBEGCCVERSUFFIX)-jit.tar.xz *
+endif
 	cd $(DISTRIB)/c++ \
 	 && \
 	 rm -f ../gcc-$(GCC_VER)-$(PKGVERSION)$(MAYBEGCCVERSUFFIX)-c++.zip && \
@@ -2160,14 +2217,19 @@ endif
 ifeq ($(MFTUPDATE_GCC_FORTRAN_UNSIZE_ADD),)
 MFTUPDATE_GCC_FORTRAN_UNSIZE_ADD=0
 endif
+ifneq ($(findstring ada,$(LANGS)),)
 ifeq ($(MFTUPDATE_GCC_ADA_UNSIZE_ADD),)
 MFTUPDATE_GCC_ADA_UNSIZE_ADD=0
+endif
 endif
 ifeq ($(MFTUPDATE_GCC_OBJC_UNSIZE_ADD),)
 MFTUPDATE_GCC_OBJC_UNSIZE_ADD=0
 endif
 ifeq ($(MFTUPDATE_GCC_OPENMP_UNSIZE_ADD),)
 MFTUPDATE_GCC_OPENMP_UNSIZE_ADD=0
+endif
+ifeq ($(MFTUPDATE_GCC_JIT_UNSIZE_ADD),)
+MFTUPDATE_GCC_JIT_UNSIZE_ADD=0
 endif
 ifeq ($(MFTUPDATE_GCC_DEFAULT_MANIFEST_UNSIZE_ADD),)
 MFTUPDATE_GCC_DEFAULT_MANIFEST_UNSIZE_ADD=0
@@ -2186,27 +2248,27 @@ Version:id|gcc-.+-tdm-[0-9+]$(MAYBEGCCVERSUFFIX)$$
 	             GCC ::SERIES:: series, for MinGW, with $(EXCEPTIONS_CAPS) unwinding</Description>
 	<Component base="gcc-core" name="core" id="gcc-core-::VER::" unsize="::UNSIZE_CORE::">
 		<Description>Required base files and C support</Description>
-		<Archive path="https://github.com/jmeubank/tdm-gcc-src/releases/download/v::VER::-$(EXCEPTIONS)/gcc-::VER::-core.tar.xz" arcsize="::ARCSIZE_CORE::" />
+		<Archive path="https://github.com/jmeubank/tdm-gcc-src/releases/download/v::VER_NO_SUFFIX::-$(EXCEPTIONS)/gcc-::VER::-core.tar.xz" arcsize="::ARCSIZE_CORE::" />
 	</Component>
 	<Component base="gcc-g++" name="g++" id="gcc-c++-::VER::" unsize="::UNSIZE_CXX::">
 		<Description>C++ support</Description>
-		<Archive path="https://github.com/jmeubank/tdm-gcc-src/releases/download/v::VER::-$(EXCEPTIONS)/gcc-::VER::-c++.tar.xz" arcsize="::ARCSIZE_CXX::" />
+		<Archive path="https://github.com/jmeubank/tdm-gcc-src/releases/download/v::VER_NO_SUFFIX::-$(EXCEPTIONS)/gcc-::VER::-c++.tar.xz" arcsize="::ARCSIZE_CXX::" />
 	</Component>
 	<Component base="gcc-fortran" name="fortran" id="gcc-fortran-::VER::" unsize="::UNSIZE_FORTRAN::">
 		<Description>Fortran support</Description>
-		<Archive path="https://github.com/jmeubank/tdm-gcc-src/releases/download/v::VER::-$(EXCEPTIONS)/gcc-::VER::-fortran.tar.xz" arcsize="::ARCSIZE_FORTRAN::" />
+		<Archive path="https://github.com/jmeubank/tdm-gcc-src/releases/download/v::VER_NO_SUFFIX::-$(EXCEPTIONS)/gcc-::VER::-fortran.tar.xz" arcsize="::ARCSIZE_FORTRAN::" />
 	</Component>
 	<Component base="gcc-ada" name="ada" id="gcc-ada-::VER::" unsize="::UNSIZE_ADA::">
 		<Description>Ada support</Description>
-		<Archive path="https://github.com/jmeubank/tdm-gcc-src/releases/download/v::VER::-$(EXCEPTIONS)/gcc-::VER::-ada.tar.xz" arcsize="::ARCSIZE_ADA::" />
+		<Archive path="https://github.com/jmeubank/tdm-gcc-src/releases/download/v::VER_NO_SUFFIX::-$(EXCEPTIONS)/gcc-::VER::-ada.tar.xz" arcsize="::ARCSIZE_ADA::" />
 	</Component>
 	<Component base="gcc-objc" name="objc" id="gcc-objc-::VER::" unsize="::UNSIZE_OBJC::">
 		<Description>Objective-C/C++ support</Description>
-		<Archive path="https://github.com/jmeubank/tdm-gcc-src/releases/download/v::VER::-$(EXCEPTIONS)/gcc-::VER::-objc.tar.xz" arcsize="::ARCSIZE_OBJC::" />
+		<Archive path="https://github.com/jmeubank/tdm-gcc-src/releases/download/v::VER_NO_SUFFIX::-$(EXCEPTIONS)/gcc-::VER::-objc.tar.xz" arcsize="::ARCSIZE_OBJC::" />
 	</Component>
 	<Component base="gcc-openmp" name="openmp" id="gcc-openmp-::VER::" unsize="::UNSIZE_OPENMP::">
 		<Description>OpenMP support</Description>
-		<Archive path="https://github.com/jmeubank/tdm-gcc-src/releases/download/v::VER::-$(EXCEPTIONS)/gcc-::VER::-openmp.tar.xz" arcsize="::ARCSIZE_OPENMP::" />
+		<Archive path="https://github.com/jmeubank/tdm-gcc-src/releases/download/v::VER_NO_SUFFIX::-$(EXCEPTIONS)/gcc-::VER::-openmp.tar.xz" arcsize="::ARCSIZE_OPENMP::" />
 	</Component>
 </Version>
 ]]>]]>
@@ -2264,6 +2326,10 @@ Version:id|gcc-.+-tdm64.*
         <Description>OpenMP support (libgomp)</Description>
         <Archive path="https://github.com/jmeubank/tdm-gcc-src/releases/download/v::VER::/gcc-::VER::-openmp.tar.xz" arcsize="::ARCSIZE_OPENMP::" />
     </Component>
+    <Component base="gcc-jit" name="gccjit" id="gcc-jit-::VER::" unsize="::UNSIZE_JIT::">
+        <Description>JIT support (libgccjit)</Description>
+        <Archive path="https://github.com/jmeubank/tdm-gcc-src/releases/download/v::VER::/gcc-::VER::-jit.tar.xz" arcsize="::ARCSIZE_JIT::" />
+    </Component>
 </Version>
 ]]>]]>
 System:id|tdm64
@@ -2316,6 +2382,7 @@ $(STAMP_GCC_MANIFEST): $(STAMP_NEW_NET_MANIFEST) $(STAMP_GCC_DISTRIB)
 	test -f $(DISTRIB)/gcc-$(GCC_VER)-$(PKGVERSION)$(MAYBEGCCVERSUFFIX)-fortran.tar.xz \
 	 && ARCSIZE1=`du -bs $(DISTRIB)/gcc-$(GCC_VER)-$(PKGVERSION)$(MAYBEGCCVERSUFFIX)-fortran.tar.xz | cut -f1` \
 	 && sed -i -e "s/\:\:ARCSIZE_FORTRAN\:\:/$$ARCSIZE1/g" MFTUPDATE_GCC.txt
+ifneq ($(findstring ada,$(LANGS)),)
 	test -d $(DISTRIB)/ada \
 	 && UNSIZE1=`du -bs $(DISTRIB)/ada | cut -f1` \
 	 && UNSIZE2=`expr $$UNSIZE1 + $(MFTUPDATE_GCC_ADA_UNSIZE_ADD)` \
@@ -2323,6 +2390,7 @@ $(STAMP_GCC_MANIFEST): $(STAMP_NEW_NET_MANIFEST) $(STAMP_GCC_DISTRIB)
 	test -f $(DISTRIB)/gcc-$(GCC_VER)-$(PKGVERSION)$(MAYBEGCCVERSUFFIX)-ada.tar.xz \
 	 && ARCSIZE1=`du -bs $(DISTRIB)/gcc-$(GCC_VER)-$(PKGVERSION)$(MAYBEGCCVERSUFFIX)-ada.tar.xz | cut -f1` \
 	 && sed -i -e "s/\:\:ARCSIZE_ADA\:\:/$$ARCSIZE1/g" MFTUPDATE_GCC.txt
+endif
 	test -d $(DISTRIB)/objc \
 	 && UNSIZE1=`du -bs $(DISTRIB)/objc | cut -f1` \
 	 && UNSIZE2=`expr $$UNSIZE1 + $(MFTUPDATE_GCC_OBJC_UNSIZE_ADD)` \
@@ -2337,6 +2405,15 @@ $(STAMP_GCC_MANIFEST): $(STAMP_NEW_NET_MANIFEST) $(STAMP_GCC_DISTRIB)
 	test -f $(DISTRIB)/gcc-$(GCC_VER)-$(PKGVERSION)$(MAYBEGCCVERSUFFIX)-openmp.tar.xz \
 	 && ARCSIZE1=`du -bs $(DISTRIB)/gcc-$(GCC_VER)-$(PKGVERSION)$(MAYBEGCCVERSUFFIX)-openmp.tar.xz | cut -f1` \
 	 && sed -i -e "s/\:\:ARCSIZE_OPENMP\:\:/$$ARCSIZE1/g" MFTUPDATE_GCC.txt
+ifneq ($(findstring jit,$(LANGS)),)
+	test -d $(DISTRIB)/jit \
+	 && UNSIZE1=`du -bs $(DISTRIB)/jit | cut -f1` \
+	 && UNSIZE2=`expr $$UNSIZE1 + $(MFTUPDATE_GCC_JIT_UNSIZE_ADD)` \
+	 && sed -i -e "s/\:\:UNSIZE_JIT\:\:/$$UNSIZE2/g" MFTUPDATE_GCC.txt
+	test -f $(DISTRIB)/gcc-$(GCC_VER)-$(PKGVERSION)$(MAYBEGCCVERSUFFIX)-jit.tar.xz \
+	 && ARCSIZE1=`du -bs $(DISTRIB)/gcc-$(GCC_VER)-$(PKGVERSION)$(MAYBEGCCVERSUFFIX)-jit.tar.xz | cut -f1` \
+	 && sed -i -e "s/\:\:ARCSIZE_JIT\:\:/$$ARCSIZE1/g" MFTUPDATE_GCC.txt
+endif
 	$(BUILD_BASE)/mftu.exe <MFTUPDATE_GCC.txt 1>$(NEW_NET_MFT).new
 	rm MFTUPDATE_GCC.txt
 	mv $(NEW_NET_MFT).new $(NEW_NET_MFT)
@@ -2393,6 +2470,148 @@ endif
 
 
 ###########
+# termcap
+###########
+.PHONY: termcap termcap-stage-install
+termcap: $(STAMP_TERMCAP_BUILD)
+termcap-stage-install: $(STAMP_TERMCAP_STAGE_INSTALL)
+
+ifeq ($(BUILD_TYPE),native)
+$(STAMP_TERMCAP_BUILD): $(STAMP_GCC_STAGE_INSTALL)
+	@echo "=== gccmaster: Build termcap ==="
+	rm -fR $(SCRATCH)/termcap
+	mkdir -p $(SCRATCH)/termcap
+ifeq ($(findstring w64,$(TARGET)),)
+	export PATH="$(STAGING_PREFIX)/bin:$(STAGING_PREFIX)/$(HOST)/bin:$(PATH)" \
+	 && \
+	 cd $(SCRATCH)/termcap \
+	 && \
+	 $(TERMCAP_SRC)/configure --build=$(HOST) --host=$(HOST) --target=$(TARGET) --prefix=$(STAGING_PREFIX) \
+	 && \
+	 $(MAKE) $(JOBS_ARG) CFLAGS="-O2 $(LTO_OPT)" LDFLAGS="-s $(LTO_OPT)" V=1
+else
+	export PATH="$(STAGING_PREFIX)/bin:$(STAGING_PREFIX)/$(HOST)/bin32:$(PATH)" \
+	 && \
+	 cd $(SCRATCH)/termcap \
+	 && \
+	 $(TERMCAP_SRC)/configure --build=$(HOST) --host=$(HOST) --target=$(TARGET) --prefix=$(STAGING_PREFIX) \
+	 && \
+	 $(MAKE) $(JOBS_ARG) CFLAGS="-O2 $(LTO_OPT)" LDFLAGS="-s $(LTO_OPT)" V=1
+endif
+	touch $@
+
+$(STAMP_TERMCAP_STAGE_INSTALL): $(STAMP_TERMCAP_BUILD)
+	@echo "=== gccmaster: Install termcap in scratch toolchain ==="
+	export PATH="$(STAGING_PREFIX)/bin:$(STAGING_PREFIX)/$(HOST)/bin32:$(PATH)" \
+	 && \
+	 cd $(SCRATCH)/termcap \
+	 && \
+	 $(MAKE) $(JOBS_ARG) V=1 install
+	touch $@
+endif
+
+
+###########
+# readline
+###########
+.PHONY: readline readline-stage-install
+readline: $(STAMP_READLINE_BUILD)
+readline-stage-install: $(STAMP_READLINE_STAGE_INSTALL)
+
+ifeq ($(BUILD_TYPE),native)
+$(STAMP_READLINE_BUILD): $(STAMP_GCC_STAGE_INSTALL) $(STAMP_TERMCAP_STAGE_INSTALL)
+	@echo "=== gccmaster: Build readline ==="
+	rm -fR $(SCRATCH)/readline
+	mkdir -p $(SCRATCH)/readline
+ifeq ($(findstring w64,$(TARGET)),)
+	export PATH="$(STAGING_PREFIX)/bin:$(STAGING_PREFIX)/$(HOST)/bin:$(PATH)" \
+	 && \
+	 cd $(SCRATCH)/readline \
+	 && \
+	 $(READLINE_SRC)/configure --build=$(HOST) --host=$(HOST) --target=$(TARGET) --prefix=$(STAGING_PREFIX) \
+	  CFLAGS="-O2 $(LTO_OPT) -DNEED_EXTERN_PC" LDFLAGS="-s $(LTO_OPT)" --without-curses \
+	 && \
+	 $(MAKE) $(JOBS_ARG) V=1
+else
+	export PATH="$(STAGING_PREFIX)/bin:$(STAGING_PREFIX)/$(HOST)/bin32:$(PATH)" \
+	 && \
+	 cd $(SCRATCH)/readline \
+	 && \
+	 $(READLINE_SRC)/configure --build=$(HOST) --host=$(HOST) --target=$(TARGET) --prefix=$(STAGING_PREFIX) \
+	  CFLAGS="-O2 $(LTO_OPT) -DNEED_EXTERN_PC" LDFLAGS="-s $(LTO_OPT)" --without-curses \
+	 && \
+	 $(MAKE) $(JOBS_ARG) V=1
+endif
+	touch $@
+
+$(STAMP_READLINE_STAGE_INSTALL): $(STAMP_READLINE_BUILD)
+	@echo "=== gccmaster: Install readline in scratch toolchain ==="
+	export PATH="$(STAGING_PREFIX)/bin:$(STAGING_PREFIX)/$(HOST)/bin32:$(PATH)" \
+	 && \
+	 cd $(SCRATCH)/readline \
+	 && \
+	 $(MAKE) $(JOBS_ARG) V=1 install
+	touch $@
+endif
+
+
+###########
+# ncurses
+###########
+.PHONY: ncurses ncurses-stage-install
+ncurses: $(STAMP_NCURSES_BUILD)
+ncurses-stage-install: $(STAMP_NCURSES_STAGE_INSTALL)
+
+ifeq ($(BUILD_TYPE),native)
+$(STAMP_NCURSES_BUILD): $(STAMP_GCC_STAGE_INSTALL) $(STAMP_READLINE_STAGE_INSTALL)
+	@echo "=== gccmaster: Build ncurses ==="
+	rm -fR $(SCRATCH)/ncurses
+	mkdir -p $(SCRATCH)/ncurses
+ifeq ($(findstring w64,$(TARGET)),)
+	export PATH="$(STAGING_PREFIX)/bin:$(STAGING_PREFIX)/$(HOST)/bin:$(PATH)" \
+	 && \
+	 cd $(SCRATCH)/ncurses \
+	 && \
+	 $(NCURSES_SRC)/configure --build=$(HOST) --host=$(HOST) --target=$(TARGET) --prefix=$(STAGING_PREFIX) \
+	  CFLAGS="-O2 $(LTO_OPT)" LDFLAGS="-s $(LTO_OPT)" \
+	  --without-ada --with-cxx --without-shared --without-pthread \
+	  --enable-pc-files --disable-rpath --enable-colorfgbg \
+	  --enable-ext-colors --enable-ext-mouse --disable-symlinks \
+	  --enable-warnings --enable-assertions --disable-home-terminfo \
+	  --enable-database --enable-sp-funcs --enable-term-driver \
+	  --enable-interop --enable-widec \
+	 && \
+	 $(MAKE) $(JOBS_ARG) V=1
+else
+	export PATH="$(STAGING_PREFIX)/bin:$(STAGING_PREFIX)/$(HOST)/bin32:$(PATH)" \
+	 && \
+	 cd $(SCRATCH)/ncurses \
+	 && \
+	 $(NCURSES_SRC)/configure --build=$(HOST) --host=$(HOST) --target=$(TARGET) --prefix=$(STAGING_PREFIX) \
+	  CFLAGS="-O2 $(LTO_OPT)" LDFLAGS="-s $(LTO_OPT)" \
+	  --without-ada --with-cxx --without-shared --without-pthread \
+	  --enable-pc-files --disable-rpath --enable-colorfgbg \
+	  --enable-ext-colors --enable-ext-mouse --disable-symlinks \
+	  --enable-warnings --enable-assertions --disable-home-terminfo \
+	  --enable-database --enable-sp-funcs --enable-term-driver \
+	  --enable-interop --enable-widec \
+	 && \
+	 $(MAKE) $(JOBS_ARG) V=1
+endif
+	touch $@
+
+$(STAMP_NCURSES_STAGE_INSTALL): $(STAMP_NCURSES_BUILD)
+	@echo "=== gccmaster: Install ncurses in scratch toolchain ==="
+	export PATH="$(STAGING_PREFIX)/bin:$(STAGING_PREFIX)/$(HOST)/bin32:$(PATH)" \
+	 && \
+	 cd $(SCRATCH)/ncurses \
+	 && \
+	 $(MAKE) $(JOBS_ARG) V=1 install
+	touch $@
+endif
+
+
+###########
 # python-src-copy
 ###########
 .PHONY: python-src-copy
@@ -2418,8 +2637,11 @@ gdb-manifest: $(STAMP_GDB_MANIFEST)
 
 ifeq ($(BUILD_TYPE),native)
 
-$(STAMP_GDB_BUILD): $(STAMP_GCC_STAGE_INSTALL) $(STAMP_EXPAT_STAGE_INSTALL) $(STAMP_PYTHON_COPY)
-$(STAMP_GDB_BUILD): $(STAMP_DEFAULT_MANIFEST_STAGE_INSTALL)
+ifneq ($(findstring w64,$(TARGET)),)
+$(STAMP_GDB_BUILD): $(STAMP_NCURSES_STAGE_INSTALL)
+endif
+$(STAMP_GDB_BUILD): $(STAMP_GCC_STAGE_INSTALL) $(STAMP_EXPAT_STAGE_INSTALL)
+$(STAMP_GDB_BUILD): $(STAMP_PYTHON_COPY) $(STAMP_DEFAULT_MANIFEST_STAGE_INSTALL)
 	@echo "=== gccmaster: Build gdb ==="
 	rm -fR $(SCRATCH)/gdb
 	mkdir -p $(SCRATCH)/gdb
@@ -2436,21 +2658,22 @@ ifeq ($(findstring w64,$(TARGET)),)
 	  CXXFLAGS="-O2 $(LTO_OPT) -I$(PYTHON_SCRATCH)/include" \
 	  LDFLAGS="-s $(LTO_OPT) -L$(PYTHON_SCRATCH)/libs" \
 	 && \
-	 V=1 $(MAKE)
+	 V=1 $(MAKE) $(JOBS_ARG)
 else
 	export PATH="$(STAGING_PREFIX)/bin:$(STAGING_PREFIX)/$(HOST)/bin32:$(PYTHON_SCRATCH):$(PATH)" \
 	 && \
 	 cd $(SCRATCH)/gdb \
 	 && \
 	 $(GDB_SRC)/configure --build=$(HOST) --prefix=$(STAGING_PREFIX)/gdb64 \
-	  --disable-nls $(GDB_TARGETS_OPT) --with-python --with-expat=yes \
-	  --disable-binutils \
+	  --enable-nls $(GDB_TARGETS_OPT) --with-python --with-expat=yes \
+	  --disable-binutils --enable-tui --enable-source-highlight=no \
 	  --enable-64-bit-bfd --with-system-gdbinit=$(STAGING_PREFIX)/gdb64/bin/gdbinit \
+	  --with-system-readline \
 	  CFLAGS="-O2 $(LTO_OPT) -DMS_WIN64 -I$(PYTHON_SCRATCH)/include" \
 	  CXXFLAGS="-O2 $(LTO_OPT) -DMS_WIN64 -I$(PYTHON_SCRATCH)/include" \
 	  LDFLAGS="-s $(LTO_OPT) -L$(PYTHON_SCRATCH)/libs -lssp" \
 	 && \
-	 V=1 $(MAKE)
+	 V=1 $(MAKE) $(JOBS_ARG)
 endif
 	touch $@
 
@@ -2460,17 +2683,17 @@ $(STAMP_GDB_STAGE_INSTALL): $(STAMP_GDB_BUILD)
 	 && \
 	 cd $(SCRATCH)/gdb \
 	 && \
-	 $(MAKE) install prefix=$(STAGING_PREFIX)
+	 $(MAKE) $(JOBS_ARG) install prefix=$(STAGING_PREFIX)
 	touch $@
 
 $(STAMP_GDB_PKG_INSTALL): $(STAMP_GDB_BUILD)
 	@echo "=== gccmaster: Install gdb in package directory ==="
 	rm -fR $(PKG_GDB)
-	export PATH="$(STAGING_PREFIX)/bin:$(PATH)" \
+	export PATH="$(STAGING_PREFIX)/bin:$(STAGING_PREFIX)/$(HOST)/bin32:$(PATH)" \
 	 && \
 	 cd $(SCRATCH)/gdb \
 	 && \
-	 $(MAKE) install prefix=$(PKG_GDB)
+	 $(MAKE) $(JOBS_ARG) install prefix=$(PKG_GDB)
 	touch $@
 
 $(STAMP_GDB_DISTRIB): $(STAMP_GDB_PKG_INSTALL)
@@ -2498,6 +2721,7 @@ ifeq ($(findstring w64,$(TARGET)),)
 	 gcc -s -O2 -o $(DISTRIB)/gdb/bin/gdbserver32.exe \
 	  $(THIS_MAKEFILE_DIR)/gdbwrapper.c -DREAL_GDB_PATH=L\"../gdb32/bin/gdbserver$(GDB_SUFFIX).exe\"
 	cp -Rp -- $(PYTHON_DIR)/DLLs $(PYTHON_DIR)/Lib $(PYTHON_DIR)/$(PYTHON_DLL) $(DISTRIB)/gdb/gdb32/bin/
+	find $(DISTRIB)/gdb/gdb32/bin/ -type d | grep __pycache__ | xargs rm -fR
 	mv $(DISTRIB)/gdb/gdb32/bin/gdb-add-index32 $(DISTRIB)/gdb/bin/
 	sed -i 's/GDB:=gdb/GDB:=gdb32/' $(DISTRIB)/gdb/bin/gdb-add-index32
 else
@@ -2505,7 +2729,7 @@ else
 	mv $(DISTRIB)/gdb/bin $(DISTRIB)/gdb/gdb64/
 	mkdir -p -- $(DISTRIB)/gdb/gdb64/share
 	mv $(DISTRIB)/gdb/share/gdb $(DISTRIB)/gdb/gdb64/share/
-	cp -p -- $(STAGING_PREFIX)/lib/gcc/x86_64-w64-mingw32/9.2.0/libssp_64-*.dll $(DISTRIB)/gdb/gdb64/bin/
+	cp -p -- $(STAGING_PREFIX)/lib/gcc/x86_64-w64-mingw32/$(GCC_VER)/libssp_64-*.dll $(DISTRIB)/gdb/gdb64/bin/
 	cp -p -- $(SCRATCH)/gmp/stage/64/bin/libgmp-*.dll $(DISTRIB)/gdb/gdb64/bin/
 	cp -p -- $(SCRATCH)/mpfr/stage/64/bin/libmpfr-*.dll $(DISTRIB)/gdb/gdb64/bin/
 	$(BUILDFROM)/bin/strip.exe $(DISTRIB)/gdb/gdb64/bin/*.exe
@@ -2524,6 +2748,7 @@ else
 	 gcc -s -O2 -o $(DISTRIB)/gdb/bin/gdbserver64.exe \
 	  $(THIS_MAKEFILE_DIR)/gdbwrapper.c -DREAL_GDB_PATH=L\"../gdb64/bin/gdbserver.exe\"
 	cp -Rp -- $(PYTHON_DIR)/DLLs $(PYTHON_DIR)/Lib $(PYTHON_DIR)/$(PYTHON_DLL) $(DISTRIB)/gdb/gdb64/bin/
+	find $(DISTRIB)/gdb/gdb64/bin/ -type d | grep __pycache__ | xargs rm -fR
 	mv $(DISTRIB)/gdb/gdb64/bin/gdb-add-index $(DISTRIB)/gdb/bin/
 endif
 	$(BUILDFROM)/bin/strip.exe $(DISTRIB)/gdb/bin/*.exe

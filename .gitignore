@@ -6,6 +6,7 @@ gdb-pkg-*
 runtime-pkg-*
 
 build-tdm*
+build-cross*
 
 distrib/
 
