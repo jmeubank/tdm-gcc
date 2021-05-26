@@ -302,9 +302,9 @@ latest version.
         </Component>
         <Component id="mingw64-gdb" name="gdb">
             <Description>GNU source-level debugger (64-bit)</Description>
-            <Version default="true" id="gdb-10.2-tdm64-1" name="Stable Release: 10.2-tdm64-1" unsize="56600978">
-                <Description>Current Release - gdb-10.2-tdm64-1</Description>
-                <Archive path="https://github.com/jmeubank/tdm-binutils-gdb/releases/download/v10.2-tdm64-1/gdb-10.2-tdm64-1.tar.xz" arcsize="15880288"/>
+            <Version default="true" id="gdb-10.2-tdm64-2" name="Stable Release: 10.2-tdm64-2" unsize="56850834">
+                <Description>Current Release - gdb-10.2-tdm64-2</Description>
+                <Archive path="https://github.com/jmeubank/tdm-binutils-gdb/releases/download/v10.2-tdm64-2/gdb-10.2-tdm64-2.tar.xz" arcsize="15965144"/>
             </Version>
         </Component>
         <Component id="gdb32" name="gdb32">
@@ -327,7 +327,7 @@ latest version.
             <Select id="binutils-2.36.1-tdm64-1"/>
             <Select id="mingw64-runtime-v8-git2021050601-gcc10-tdm64-1"/>
             <Select id="mingw32-make-3.82.90-2-mingw32-cvs-20120902"/>
-            <Select id="gdb-10.2-tdm64-1"/>
+            <Select id="gdb-10.2-tdm64-2"/>
             <Select id="windows-default-manifest-6.4-x86_64_multi"/>
         </InstallType>
         <InstallType id="tdmrecall" name="TDM-GCC Recommended, All Packages">
@@ -335,7 +335,7 @@ latest version.
             <Select id="binutils-2.36.1-tdm64-1"/>
             <Select id="mingw64-runtime-v8-git2021050601-gcc10-tdm64-1"/>
             <Select id="mingw32-make-3.82.90-2-mingw32-cvs-20120902"/>
-            <Select id="gdb-10.2-tdm64-1"/>
+            <Select id="gdb-10.2-tdm64-2"/>
             <Select id="gdb32-10.2-tdm-1"/>
             <Select id="windows-default-manifest-6.4-x86_64_multi"/>
         </InstallType>
