@@ -2732,6 +2732,7 @@ else
 	cp -p -- $(STAGING_PREFIX)/lib/gcc/x86_64-w64-mingw32/$(GCC_VER)/libssp_64-*.dll $(DISTRIB)/gdb/gdb64/bin/
 	cp -p -- $(SCRATCH)/gmp/stage/64/bin/libgmp-*.dll $(DISTRIB)/gdb/gdb64/bin/
 	cp -p -- $(SCRATCH)/mpfr/stage/64/bin/libmpfr-*.dll $(DISTRIB)/gdb/gdb64/bin/
+	cp -p -- $(SCRATCH)/readline/shlib/libreadline*.dll $(DISTRIB)/gdb/gdb64/bin/
 	$(BUILDFROM)/bin/strip.exe $(DISTRIB)/gdb/gdb64/bin/*.exe
 	mkdir -p -- $(DISTRIB)/gdb/bin
 	export PATH="$(STAGING_PREFIX)/bin:$(STAGING_PREFIX)/$(HOST)/bin32:$(PATH)" \
