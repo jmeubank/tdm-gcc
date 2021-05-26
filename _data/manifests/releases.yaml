@@ -5,19 +5,19 @@ installers:
       and unpacks them. Either edition, latest release only. <em>(GCC
       10.3.0)</em>
     versions:
-      - version: 1.2105.0
-        url: 'https://github.com/jmeubank/tdm-gcc/releases/download/v1.2105.0/tdm-gcc-webdl.exe'
+      - version: 1.2105.1
+        url: 'https://github.com/jmeubank/tdm-gcc/releases/download/v1.2105.1/tdm-gcc-webdl.exe'
         file: tdm-gcc-webdl.exe
-        size: 530 KB
+        size: 529 KB
   - sidebar_blurb: MinGW-w64 based
     description: |
       64+32-bit MinGW-w64 edition. Includes GCC C/C++, GNU binutils,
       mingw32-make, GDB (64-bit), the MinGW-w64 runtime libraries and tools, and
       the windows-default-manifest package.
     versions:
-      - version: 10.3.0-tdm64-1
-        url: 'https://github.com/jmeubank/tdm-gcc/releases/download/v10.3.0-tdm64-1/tdm64-gcc-10.3.0.exe'
-        file: tdm64-gcc-10.3.0.exe
+      - version: 10.3.0-tdm64-2
+        url: 'https://github.com/jmeubank/tdm-gcc/releases/download/v10.3.0-tdm64-2/tdm64-gcc-10.3.0-2.exe'
+        file: tdm64-gcc-10.3.0-2.exe
         size: 76.6 MB
   - sidebar_blurb: MinGW.org based
     description: |
