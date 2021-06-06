@@ -58,7 +58,7 @@ the following packages:
 
 ## BUILD NOTES ##
 
-The 9.2.0 TDM32 and TDM64 GCC binaries were built as native bootstraps in
+The 10.3.0 TDM32 and TDM64 GCC binaries were built as native bootstraps in
 Windows 10 (64-bit), using previously built toolchains with the same set of
 patches, under the [MSYS2](https://www.msys2.org/) environment. The build
 scripts in this package will probably not work in Cygwin, WSL, or GNU/Linux
